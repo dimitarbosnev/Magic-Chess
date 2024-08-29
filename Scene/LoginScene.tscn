@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://brfbqcbpsnknp"]
+
+[ext_resource type="Script" path="res://Script/fsm/views/LoginView.cs" id="1_7isdo"]
+
+[node name="LoginScene" type="Node3D"]
+script = ExtResource("1_7isdo")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://icp0knet02i7"]
+
+[ext_resource type="Script" path="res://Script/fsm/views/LobbyView.cs" id="1_vclxl"]
+
+[node name="LobbyScene" type="Node3D"]
+script = ExtResource("1_vclxl")

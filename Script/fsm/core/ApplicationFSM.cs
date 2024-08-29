@@ -47,7 +47,7 @@ public partial class ApplicationFSM : Node3D
 	/**
 	 * Change state to which state object was specified in the Inspector.
 	 */
-	private void Start()
+	public override void _Ready()
     {
 		channel = new TcpMessageChannel();
 
@@ -60,6 +60,10 @@ public partial class ApplicationFSM : Node3D
         ChangeState(_startState);
     }
 
+	public override void _Process(double delta)
+	{
+		_currentState.Update();
+	}
 	/**
 	 * Search for a child instance which matches the requested state class,
 	 * Enter it and Exit all others.
@@ -95,9 +99,14 @@ public partial class ApplicationFSM : Node3D
 		}
 	}
 
-	public void OnApplicationQuit()
-	{
-		ChangeState(null);
-		channel.Close();
-	}
+    public override void _Notification(int what)
+    {
+        base._Notification(what);
+		switch(what){
+			case (int)NotificationWMCloseRequest:
+				ChangeState(null);
+				channel.Close();
+			break;
+		}
+    }
 }

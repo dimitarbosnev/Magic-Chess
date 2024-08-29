@@ -5,20 +5,17 @@
      */
     public class PlayerJoinResponse : ISerializable
     {
-        //public enum RequestResult { ACCEPTED, REJECTED}; //can add different result states if you want
-        //public RequestResult result;
-        public Team playerTeam;
+        public enum RequestResult { ACCEPTED, REJECTED}; //can add different result states if you want
+        public RequestResult result;
 
         public void Serialize(Packet pPacket)
         {
-           // pPacket.Write((int)result);
-           pPacket.Write(playerTeam);
+           pPacket.Write((int)result);
         }
 
         public void Deserialize(Packet pPacket)
         {
-            //result = (RequestResult)pPacket.ReadInt();
-            playerTeam = pPacket.ReadTeam();
+            result = (RequestResult)pPacket.ReadInt();
         }
     }
 

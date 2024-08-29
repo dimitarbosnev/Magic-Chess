@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://def34n8i72hdh"]
+[gd_scene load_steps=14 format=3 uid="uid://def34n8i72hdh"]
 
-[ext_resource type="Script" path="res://Script/CameraRotation.cs" id="1_3ujip"]
-[ext_resource type="Script" path="res://Script/Ray_Script.cs" id="2_5ejuw"]
-[ext_resource type="Script" path="res://Script/PlayerFSM.cs" id="3_m2wbd"]
-[ext_resource type="Script" path="res://Script/ChessBoard.cs" id="4_4os6w"]
+[ext_resource type="Script" path="res://Script/fsm/views/GameView.cs" id="1_0hlqy"]
+[ext_resource type="Script" path="res://Script/ChessBoard.cs" id="1_lfawc"]
+[ext_resource type="Script" path="res://Script/CameraRotation.cs" id="2_qf2yn"]
+[ext_resource type="Script" path="res://Script/Ray_Script.cs" id="3_afnn7"]
+[ext_resource type="Script" path="res://Script/PlayerFSM.cs" id="4_xwimd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_guiyc"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -30,7 +31,8 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_npym5"]
 
-[node name="Level1" type="Node3D"]
+[node name="GameScene" type="Node3D"]
+script = ExtResource("1_0hlqy")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fi0bd")
@@ -40,7 +42,7 @@ transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -
 shadow_enabled = true
 
 [node name="Board" type="Node3D" parent="." node_paths=PackedStringArray("graveyardBlue", "graveyardRed")]
-script = ExtResource("4_4os6w")
+script = ExtResource("1_lfawc")
 graveyardBlue = NodePath("GreaveyardBlue")
 graveyardRed = NodePath("GraveyardRed")
 
@@ -61,17 +63,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_mx76o")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 6.18172e-08, -6.18172e-08, 0, 0.707107, 0.707107, 8.74228e-08, 0.707107, -0.707107, 0, 0, 0)
 size = 7.0
-script = ExtResource("1_3ujip")
+script = ExtResource("2_qf2yn")
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" node_paths=PackedStringArray("Camera") groups=["Tiles"]]
 target_position = Vector3(0, 0, -10)
 collide_with_areas = true
-script = ExtResource("2_5ejuw")
+script = ExtResource("3_afnn7")
 Camera = NodePath("..")
 
 [node name="Node3D" type="Node3D" parent="Camera3D" node_paths=PackedStringArray("camera", "ray")]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0)
-script = ExtResource("3_m2wbd")
+script = ExtResource("4_xwimd")
 camera = NodePath("..")
 ray = NodePath("../RayCast3D")
 

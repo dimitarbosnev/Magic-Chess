@@ -1,25 +1,13 @@
-﻿using shared;
-using UnityEngine;
-
-/**
+﻿/**
  * 'Chat' state while you are waiting to start a game where you can signal that you are ready or not.
  */
 public class LobbyState : ApplicationStateWithView<LobbyView>
 {
-    [Tooltip("Should we enter the lobby in a ready state or not?")]
-    [SerializeField] private bool autoQueueForGame = false;
+    private bool autoQueueForGame = false;
 
     public override void EnterState()
     {
         base.EnterState();
-
-        view.SetLobbyHeading("Welcome to the Lobby...");
-        view.ClearOutput();
-        view.AddOutput($"Server settings:"+fsm.channel.GetRemoteEndPoint());
-        view.SetReadyToggle(autoQueueForGame);
-
-        view.OnChatTextEntered += onTextEntered;
-        view.OnReadyToggleClicked += onReadyToggleClicked;
 
         if (autoQueueForGame)
         {
@@ -31,8 +19,6 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
     {
         base.ExitState();
         
-        view.OnChatTextEntered -= onTextEntered;
-        view.OnReadyToggleClicked -= onReadyToggleClicked;
     }
 
     /**
@@ -40,7 +26,6 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
      */
     private void onTextEntered(string pText)
     {
-        view.ClearInput();
         ChatMessage chatMessage= new ChatMessage();
         chatMessage.message = pText;
         fsm.channel.SendMessage(chatMessage);
@@ -59,19 +44,18 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
 
     private void addOutput(string pInfo)
     {
-        view.AddOutput(pInfo);
     }
 
     /// //////////////////////////////////////////////////////////////////
     ///                     NETWORK MESSAGE PROCESSING
     /// //////////////////////////////////////////////////////////////////
 
-    private void Update()
+       public override void Update()
     {
         receiveAndProcessNetworkMessages();
     }
     
-    protected override void handleNetworkMessage(ASerializable pMessage)
+    protected override void handleNetworkMessage(ISerializable pMessage)
     {
         if (pMessage is ChatMessage) handleChatMessage(pMessage as ChatMessage);
         else if (pMessage is RoomJoinedEvent) handleRoomJoinedEvent(pMessage as RoomJoinedEvent);
@@ -94,8 +78,6 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
 
     private void handleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
     {
-        //update the lobby heading
-        view.SetLobbyHeading($"Welcome to the Lobby ({pMessage.memberCount} people, {pMessage.readyCount} ready)");
     }
 
 }

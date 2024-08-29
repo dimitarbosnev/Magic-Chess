@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using Godot;
 
 /**
  * The idea of any View subclass is that it wraps all (well most anyway) details of the underlying components
@@ -8,15 +8,7 @@
  * 
  * See LoginView etc for examples.
  */
-public abstract class View : MonoBehaviour
+public partial class View : Node3D
 {
-    public virtual void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public virtual void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+    
 }

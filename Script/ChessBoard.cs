@@ -43,7 +43,7 @@ public partial class ChessBoard : Node3D
 	}
 
 	private void ExecuteCommand(Command command){
-		command.execute();//ref board);
+		command.execute(ref board);//ref board);
 		executedCommands.Push(command);
 	}
 
