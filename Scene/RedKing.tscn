@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbn62dc2yhqb3"]
+
+[ext_resource type="ArrayMesh" uid="uid://ci7pqsqmn5r7y" path="res://Assets/Pieces/king/snakeking-3.obj" id="1_78fpo"]
+[ext_resource type="Script" path="res://Script/Pieces/RedKing.cs" id="1_wxih3"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_wxih3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.27, 0, 0, 0, 0.27, 0, 0, 0, 0.27, 0, 0.05, 0)
+mesh = ExtResource("1_78fpo")

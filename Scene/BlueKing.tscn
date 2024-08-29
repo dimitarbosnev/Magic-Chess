@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgdyartqse1a7"]
+
+[ext_resource type="ArrayMesh" uid="uid://ci7pqsqmn5r7y" path="res://Assets/Pieces/king/snakeking-3.obj" id="1_5dyrf"]
+[ext_resource type="Script" path="res://Script/Pieces/BlueKing.cs" id="1_tv4b1"]
+[ext_resource type="Texture2D" uid="uid://pskv0rk0kyym" path="res://Assets/Pieces/king/snakeking-3.png" id="2_ddfdc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3g1pn"]
+albedo_color = Color(0.341176, 0.509804, 1, 1)
+albedo_texture = ExtResource("2_ddfdc")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_tv4b1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.27, 0, 0, 0, 0.27, 0, 0, 0, 0.27, 0, 0.05, 0)
+mesh = ExtResource("1_5dyrf")
+surface_material_override/0 = SubResource("StandardMaterial3D_3g1pn")

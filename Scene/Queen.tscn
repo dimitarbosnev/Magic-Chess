@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://lx1axxx566dw"]
+
+[ext_resource type="Script" path="res://Script/Pieces/Queen.cs" id="1_1rafw"]
+[ext_resource type="ArrayMesh" uid="uid://cnwi32gpevcdn" path="res://Assets/Pieces/god/snakegod-0.obj" id="1_atfjp"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_1rafw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.27, 0, 0, 0, 0.27, 0, 0, 0, 0.27, -1.37, 0.05, 0)
+mesh = ExtResource("1_atfjp")

@@ -1,0 +1,7 @@
+[gd_resource type="ORMMaterial3D" format=3 uid="uid://bpw7ajc0jri84"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(1, 1, 0.32549, 0.709804)
+ao_enabled = true

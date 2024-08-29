@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c3g48q4boyx3h"
+path="res://.godot/imported/lizardmonitor-1.obj-7af97d6185c89a8789d2f698f0ca03f6.mesh"
+
+[deps]
+
+files=["res://.godot/imported/lizardmonitor-1.obj-7af97d6185c89a8789d2f698f0ca03f6.mesh"]
+
+source_file="res://Assets/Pieces/monitor/lizardmonitor-1.obj"
+dest_files=["res://.godot/imported/lizardmonitor-1.obj-7af97d6185c89a8789d2f698f0ca03f6.mesh", "res://.godot/imported/lizardmonitor-1.obj-7af97d6185c89a8789d2f698f0ca03f6.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

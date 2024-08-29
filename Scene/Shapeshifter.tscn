@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://vd6kw4mfeqen"]
+
+[ext_resource type="Script" path="res://Script/Pieces/Shapeshifter.cs" id="1_6dycb"]
+[ext_resource type="ArrayMesh" uid="uid://dwcu7vlhuyoeq" path="res://Assets/Pieces/wizard/Snakewizard.obj" id="1_qelw1"]
+[ext_resource type="Texture2D" uid="uid://d3p45r4u5ucnc" path="res://Assets/Pieces/wizard/Snakewizard.png" id="2_e76c2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m3c3o"]
+albedo_color = Color(0.262745, 1, 0.305882, 1)
+albedo_texture = ExtResource("2_e76c2")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_6dycb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.4, 0, -3.49691e-08, 0, 0.4, 0, 3.49691e-08, 0, -0.4, 0, 0.05, 0)
+mesh = ExtResource("1_qelw1")
+surface_material_override/0 = SubResource("StandardMaterial3D_m3c3o")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://db5m3djii3gjp"]
+
+[ext_resource type="ArrayMesh" uid="uid://bdu1jijroayj2" path="res://Assets/Pieces/bomb/lizardbomb-3.obj" id="1_bs1y7"]
+[ext_resource type="Script" path="res://Script/Pieces/Centaur.cs" id="1_lgant"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_lgant")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.04907e-08, 0, 0.24, 0, 0.24, 0, -0.24, 0, -1.04907e-08, 0, 0.05, 0)
+mesh = ExtResource("1_bs1y7")

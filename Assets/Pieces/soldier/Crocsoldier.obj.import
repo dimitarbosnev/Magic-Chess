@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dxlugxrhi6fnc"
+path="res://.godot/imported/Crocsoldier.obj-7c28723a2312203c0aac3e18fda949eb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Crocsoldier.obj-7c28723a2312203c0aac3e18fda949eb.mesh"]
+
+source_file="res://Assets/Pieces/soldier/Crocsoldier.obj"
+dest_files=["res://.godot/imported/Crocsoldier.obj-7c28723a2312203c0aac3e18fda949eb.mesh", "res://.godot/imported/Crocsoldier.obj-7c28723a2312203c0aac3e18fda949eb.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

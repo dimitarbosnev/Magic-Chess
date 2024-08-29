@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://rrn3sr22tahj"]
+
+[ext_resource type="Script" path="res://Script/Pieces/Soldier.cs" id="1_2li1x"]
+[ext_resource type="ArrayMesh" uid="uid://dxlugxrhi6fnc" path="res://Assets/Pieces/soldier/Crocsoldier.obj" id="1_pn0t7"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_2li1x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0.05, 0)
+mesh = ExtResource("1_pn0t7")

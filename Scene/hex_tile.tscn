@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://dod788uv3y6uv"]
+
+[ext_resource type="Script" path="res://Script/Tile.cs" id="1_j6ln6"]
+[ext_resource type="Script" path="res://Script/SubViewportScript.cs" id="2_05pu8"]
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_3uokv"]
+radial_steps = 6
+sections = 2
+section_length = 0.05
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6na26"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[node name="MeshInstance3D" type="MeshInstance3D" node_paths=PackedStringArray("label")]
+mesh = SubResource("TubeTrailMesh_3uokv")
+script = ExtResource("1_j6ln6")
+label = NodePath("Sprite3D/SubViewport/Label")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="StaticBody3D"]
+depth = 0.1
+polygon = PackedVector2Array(-0.433833, 0.247678, -0.431948, -0.252049, 0.00212386, -0.496416, 0.431233, -0.249907, 0.433516, 0.24996, -0.000429921, 0.498022)
+margin = 0.001
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.873254, 0.487265, 0, -0.487265, 0.873254, 0, 0.2, 0)
+visible = false
+texture = SubResource("ViewportTexture_6na26")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" node_paths=PackedStringArray("label")]
+size = Vector2i(72, 23)
+script = ExtResource("2_05pu8")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport"]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Blablabla"
+horizontal_alignment = 1
+vertical_alignment = 1

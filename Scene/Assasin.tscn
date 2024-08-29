@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj55g3yn8wywb"]
+
+[ext_resource type="Script" path="res://Script/Pieces/Assassin.cs" id="1_0p3uv"]
+[ext_resource type="ArrayMesh" uid="uid://c3g48q4boyx3h" path="res://Assets/Pieces/monitor/lizardmonitor-1.obj" id="1_3a3sd"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_0p3uv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.4, 0, -3.49691e-08, 0, 0.4, 0, 3.49691e-08, 0, -0.4, 0.04, -0.2, -0.1)
+mesh = ExtResource("1_3a3sd")
