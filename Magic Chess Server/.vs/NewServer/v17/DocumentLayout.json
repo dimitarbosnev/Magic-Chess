@@ -1,0 +1,134 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\Pieces\\ChessPiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\Packet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\newserver\\server src\\rooms\\gameroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\rooms\\gameroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\TcpMessageChannel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\newserver\\server src\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\newserver\\server src\\tcpgameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\tcpgameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\newserver\\server src\\rooms\\loginroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\rooms\\loginroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Packet.cs",
+              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\Packet.cs",
+              "RelativeDocumentMoniker": "..\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\Packet.cs",
+              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\Packet.cs",
+              "RelativeToolTip": "..\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\Packet.cs",
+              "ViewState": "AQIAADIAAAAAAAAAAAAIwD4AAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T20:15:20.563Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChessPiece.cs",
+              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\Pieces\\ChessPiece.cs",
+              "RelativeDocumentMoniker": "..\\NewMagicChess\\magic-chess\\Script\\Pieces\\ChessPiece.cs",
+              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\Pieces\\ChessPiece.cs",
+              "RelativeToolTip": "..\\NewMagicChess\\magic-chess\\Script\\Pieces\\ChessPiece.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T20:14:43.076Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Room.cs",
+              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\server src\\Room.cs",
+              "RelativeDocumentMoniker": "server src\\Room.cs",
+              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\server src\\Room.cs",
+              "RelativeToolTip": "server src\\Room.cs",
+              "ViewState": "AQIAAF8AAAAAAAAAAAAYwEsAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T19:04:16.306Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TcpMessageChannel.cs",
+              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\TcpMessageChannel.cs",
+              "RelativeDocumentMoniker": "..\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\TcpMessageChannel.cs",
+              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\TcpMessageChannel.cs",
+              "RelativeToolTip": "..\\NewMagicChess\\magic-chess\\Script\\shared src\\serialization\\TcpMessageChannel.cs",
+              "ViewState": "AQIAAKYAAAAAAAAAAAAIwLsAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T19:03:08.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LoginRoom.cs",
+              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\server src\\rooms\\LoginRoom.cs",
+              "RelativeDocumentMoniker": "server src\\rooms\\LoginRoom.cs",
+              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\server src\\rooms\\LoginRoom.cs",
+              "RelativeToolTip": "server src\\rooms\\LoginRoom.cs",
+              "ViewState": "AQIAADAAAAAAAAAAAAAAAD4AAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T17:35:50.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameRoom.cs",
+              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\server src\\rooms\\GameRoom.cs",
+              "RelativeDocumentMoniker": "server src\\rooms\\GameRoom.cs",
+              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\server src\\rooms\\GameRoom.cs",
+              "RelativeToolTip": "server src\\rooms\\GameRoom.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAvwFsAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T17:31:01.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TCPGameServer.cs",
+              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\server src\\TCPGameServer.cs",
+              "RelativeDocumentMoniker": "server src\\TCPGameServer.cs",
+              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\server src\\TCPGameServer.cs",
+              "RelativeToolTip": "server src\\TCPGameServer.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAkwGIAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T16:18:59.539Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

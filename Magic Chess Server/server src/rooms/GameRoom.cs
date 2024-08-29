@@ -31,10 +31,15 @@ namespace server
             addMember(pPlayer1);
             addMember(pPlayer2);
 
-            GameStartEvent gameStart = new GameStartEvent();
-            gameStart.player1Name = _server.GetPlayerInfo(pPlayer1).playerName;
-            gameStart.player2Name = _server.GetPlayerInfo(pPlayer2).playerName;
-            sendToAll(gameStart);
+            //GameStartEvent gameStart = new GameStartEvent();
+            //gameStart.player1Name = _server.GetPlayerInfo(pPlayer1).playerName;
+            //gameStart.player2Name = _server.GetPlayerInfo(pPlayer2).playerName;
+            PlayerJoinResponse gameStart1 = new PlayerJoinResponse();
+            PlayerJoinResponse gameStart2 = new PlayerJoinResponse();
+            gameStart1.playerTeam = Team.Blue;
+            gameStart2.playerTeam = Team.Red;
+            pPlayer1.SendMessage(gameStart1);
+            pPlayer2.SendMessage(gameStart2);
         }
 
         protected override void addMember(TcpMessageChannel pMember)
@@ -84,6 +89,15 @@ namespace server
             {
                 handleMakeMoveRequest(pMessage as MakeMoveRequest, pSender);
             }
+            else if(pMessage is Command)
+            {
+                handleCommandMessage(pMessage as Command, pSender);
+            }
+        }
+
+        private void handleCommandMessage(Command command, TcpMessageChannel pSender)
+        {
+            sendToAll(command);
         }
 
         private void handleMakeMoveRequest(MakeMoveRequest pMessage, TcpMessageChannel pSender)

@@ -1,0 +1,19 @@
+G:\Year 2 Module 1\Personal Protfolio\NewServer\bin\Debug\net6.0\NewServer.exe
+G:\Year 2 Module 1\Personal Protfolio\NewServer\bin\Debug\net6.0\NewServer.deps.json
+G:\Year 2 Module 1\Personal Protfolio\NewServer\bin\Debug\net6.0\NewServer.runtimeconfig.json
+G:\Year 2 Module 1\Personal Protfolio\NewServer\bin\Debug\net6.0\NewServer.dll
+G:\Year 2 Module 1\Personal Protfolio\NewServer\bin\Debug\net6.0\NewServer.pdb
+G:\Year 2 Module 1\Personal Protfolio\NewServer\bin\Debug\net6.0\GodotSharp.dll
+G:\Year 2 Module 1\Personal Protfolio\NewServer\bin\Debug\net6.0\Magic Chess.dll
+G:\Year 2 Module 1\Personal Protfolio\NewServer\bin\Debug\net6.0\Magic Chess.pdb
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.csproj.AssemblyReference.cache
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.GeneratedMSBuildEditorConfig.editorconfig
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.AssemblyInfoInputs.cache
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.AssemblyInfo.cs
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.csproj.CoreCompileInputs.cache
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.csproj.Up2Date
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.dll
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\refint\NewServer.dll
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.pdb
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\NewServer.genruntimeconfig.cache
+G:\Year 2 Module 1\Personal Protfolio\NewServer\obj\Debug\net6.0\ref\NewServer.dll

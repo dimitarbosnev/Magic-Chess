@@ -52,7 +52,7 @@ namespace server
 
             PlayerJoinResponse playerJoinResponse = new PlayerJoinResponse();
             List<PlayerInfo> playerInfos = _server.GetPlayerInfo(x => x.playerName == pMessage.name);
-            if (playerInfos.Count > 0) { playerJoinResponse.result = PlayerJoinResponse.RequestResult.REJECTED; }
+            /*if (playerInfos.Count > 0) { playerJoinResponse.result = PlayerJoinResponse.RequestResult.REJECTED; }
             else {
                 playerJoinResponse.result = PlayerJoinResponse.RequestResult.ACCEPTED;
                 PlayerInfo playerInfo = _server.GetPlayerInfo(pSender);
@@ -60,7 +60,7 @@ namespace server
                 removeMember(pSender);
                 _server.GetLobbyRoom().AddMember(pSender);
             }
-            pSender.SendMessage(playerJoinResponse);
+            pSender.SendMessage(playerJoinResponse);*/
 
         }
 
