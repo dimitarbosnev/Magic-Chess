@@ -48,13 +48,11 @@ public partial class PlayerFSM : Node
 		foreach(PlayerState state in playerStates.Values)
             state.Init(this);
         TransitToState(playerStates[typeof(PlayerHoverState)]);
-		EventBus<ServerJoinEvent>.OnEvent += OnServerJoinEvent;
-		EventBus<PlayerInitEvent>.Invoke(new PlayerInitEvent());
-
+		EventBus<GameSetupEvent>.OnEvent += OnGameStart;
 	}
 
-	private void OnServerJoinEvent(ServerJoinEvent e){
-		playerTeam = e.team;
+	private void OnGameStart(GameSetupEvent gameStart){
+		playerTeam = gameStart.team;
 		camera.AdaptCamera(playerTeam);
 		camera.targetPosition = board[4][4].Position;
 		camera.RotateCamera(Vector2.Zero,Vector2.Zero,0);
@@ -86,7 +84,11 @@ public partial class PlayerFSM : Node
 		}
 	}
 
-	public void InvokeMove(ChessPiece pChessPiece, Command pCommand){
+    public override void _ExitTree()
+    {
+        EventBus<GameSetupEvent>.OnEvent -= OnGameStart;
+    }
+    public void InvokeMove(ChessPiece pChessPiece, Command pCommand){
 		EventBus<PieceReleaseEvent>.Invoke
 		(new PieceReleaseEvent(pChessPiece,pCommand));
 	}
@@ -175,9 +177,7 @@ public class PlayerNormalReleaseState : PlayerState {
 		playerFSM.TransitToState(typeof(PlayerHoverState));
 	}
     public override void OnEnterState(){
-		EventBus<PieceReleaseEvent>.Invoke
-		(new PieceReleaseEvent(playerFSM.currentHold,
-		new MoveCommand(playerFSM.currentHold,playerFSM.hoverTile)));
+		playerFSM.InvokeMove(playerFSM.currentHold,new MoveCommand(playerFSM.currentHold,playerFSM.hoverTile));
 	}
     public override void OnExitState(){
 		playerFSM.currentHold = null;
@@ -191,9 +191,7 @@ public class PlayerSpecialReleaseState : PlayerState {
 		playerFSM.TransitToState(typeof(PlayerHoverState));
 	}
     public override void OnEnterState(){
-		EventBus<PieceReleaseEvent>.Invoke
-		(new PieceReleaseEvent(playerFSM.currentHold, 
-		playerFSM.currentHold.AbilityMove(playerFSM.hoverTile)));
+		playerFSM.InvokeMove(playerFSM.currentHold, playerFSM.currentHold.AbilityMove(playerFSM.hoverTile));
 	}
     public override void OnExitState(){
 		playerFSM.currentHold = null;

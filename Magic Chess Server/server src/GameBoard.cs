@@ -14,8 +14,9 @@
      */
     public class GameBoard
     {
-        private ServerChessBoard _board = new ServerChessBoard();
+        private ChessBoardData _board = new ChessBoardData();
 
+        public Team teamTurn;
         /**
          * @param pMove     a number from 0-8 that indicates the cell we want to change
          * @param pPlayer   1 or 2 to indicate which player made the move
@@ -34,10 +35,15 @@
         /**
          * Return the inner board data state so we can send it to a client.
          */
-        public ServerChessBoard GetBoardData()
+        public ChessBoardData GetBoardData()
         {
             //it would be more academically correct if we would clone this object before returning it, but anyway.
             return _board;
+        }
+
+        public void NextTurn()
+        {
+            teamTurn = teamTurn == Team.Blue ? Team.Red : Team.Blue;
         }
     }
 }

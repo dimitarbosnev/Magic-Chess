@@ -5,18 +5,27 @@
      */
     public class GameStartEvent : ISerializable
     {
-        public string player1Name;
-        public string player2Name;
+        public string playerName{get; private set;}
+        public string enemyName{get; private set;}
+        public Team playerTeam{get; private set;}
+        public GameStartEvent(string pPlayerName,string pEnemyName,Team pPlayerTeam){
+            playerName = pPlayerName;
+            enemyName = pEnemyName;
+            playerTeam = pPlayerTeam;
+        }
+        public GameStartEvent(){}
         public void Serialize(Packet pPacket)
         {
-            pPacket.Write(player1Name);
-            pPacket.Write(player2Name);
+            pPacket.Write(playerName);
+            pPacket.Write(enemyName);
+            pPacket.Write((int)playerTeam);
         }
 
         public void Deserialize(Packet pPacket)
         {
-            player1Name = pPacket.ReadString();
-            player2Name = pPacket.ReadString();
+            playerName = pPacket.ReadString();
+            enemyName = pPacket.ReadString();
+            playerTeam = (Team)pPacket.ReadInt();
         }
     }
 

@@ -7,19 +7,18 @@ public partial class ChessPiece : Node3D
 	public bool _ability = true;
 	public bool frozen = false;
 	private Tile _tile;
-
 	private static int PieceIdCounter = 0;
 	public int pieceID{get; private set;}
 	public Tile tile{
 		get { return _tile; }
-		set { if(_tile != null) _tile.piece = null; _tile = value; if(_tile != null) Reparent(tile); SetPosition(Vector3.Zero);}
+		set {if(value != null) {Reparent(value); if(_tile != null) _tile.piece = null; } _tile = value; SetPosition(Vector3.Zero);}
 	}
 	public virtual bool Ability {
 		get { return _ability; }
 		set { _ability = value; }
 	}
 	public Vector2I coordinates {
-		get { return tile.coordinates; }
+		get { return _tile.coordinates; }
 	}
 	public Team Team {
 		get { return _team; }

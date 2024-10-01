@@ -1,3 +1,6 @@
+
+using Godot;
+
 /**
  * This is where we 'play' a game.
  */
@@ -6,12 +9,14 @@ public class GameState : ApplicationStateWithView<GameView>
     public override void EnterState()
     {
         base.EnterState();
-        
-        //view.gameBoard.OnCellClicked += _onCellClicked;
+        if(fsm.channel.HasMessage())
+			handleNetworkMessage(fsm.channel.ReceiveMessage());
+        EventBus<PieceReleaseEvent>.OnEvent += sendMakeMoveRequest;
     }
 
     public override void ExitState()
     {
+        EventBus<PieceReleaseEvent>.OnEvent -= sendMakeMoveRequest;
         base.ExitState();
     }
 
@@ -29,26 +34,20 @@ public class GameState : ApplicationStateWithView<GameView>
 
     private void handleGameStartEvent(GameStartEvent gameStartEvent)
     {
-        //view.playerLabel1.text = "Player 1: " + gameStartEvent.player1Name;
-        //view.playerLabel2.text = "Player 2: " + gameStartEvent.player2Name;
+        view.thisPlayer.Text = gameStartEvent.playerName + ": " + gameStartEvent.playerTeam;
+        view.enemyPlayer.Text = gameStartEvent.enemyName + ": " + (gameStartEvent.playerTeam == Team.Blue? Team.Red : Team.Blue);
+        EventBus<GameSetupEvent>.Invoke(new GameSetupEvent(gameStartEvent.playerTeam));
         //view.gameBoard.SetBoardData(new TicTacToeBoardData());
     }
 
+    private void sendMakeMoveRequest(PieceReleaseEvent releaseEvent){
+        GD.Print("Sending Message");
+        MakeMoveRequest makeMove = new MakeMoveRequest(releaseEvent.command);
+        fsm.channel.SendMessage(makeMove);
+    }
     private void handleMakeMoveResult(MakeMoveResult pMakeMoveResult)
     {
-
-        //some label display
-        /*if (pMakeMoveResult.whoMadeTheMove == 1)
-        {
-            player1MoveCount++;
-            view.playerLabel1.text = $"Player 1 (Movecount: {player1MoveCount})";
-        }
-        if (pMakeMoveResult.whoMadeTheMove == 2)
-        {
-            player2MoveCount++;
-            view.playerLabel2.text = $"Player 2 (Movecount: {player2MoveCount})";
-        }*/
-
+        EventBus<CommandMessageRecived>.Invoke(new CommandMessageRecived(pMakeMoveResult.command));
     }
         private void handleRoomJoinedEvent (RoomJoinedEvent pMessage)
     {

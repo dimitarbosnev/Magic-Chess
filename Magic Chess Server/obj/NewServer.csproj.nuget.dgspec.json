@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\NewServer.csproj": {}
+    "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\NewServer.csproj": {}
   },
   "projects": {
-    "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\NewServer.csproj": {
+    "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\NewServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\NewServer.csproj",
+        "projectUniqueName": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\NewServer.csproj",
         "projectName": "NewServer",
-        "projectPath": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\NewServer.csproj",
+        "projectPath": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\NewServer.csproj",
         "packagesPath": "C:\\Users\\dimit\\.nuget\\packages\\",
-        "outputPath": "G:\\Year 2 Module 1\\Personal Protfolio\\NewServer\\obj\\",
+        "outputPath": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dimit\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -60,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

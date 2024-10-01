@@ -2,5 +2,140 @@
 
 [ext_resource type="Script" path="res://Script/fsm/views/LobbyView.cs" id="1_vclxl"]
 
-[node name="LobbyScene" type="Node3D"]
+[node name="LobbyScene" type="Node3D" node_paths=PackedStringArray("_findMatch", "_statusMessage", "_playersInLobby", "_playersInQueue", "_chatWindow", "_messageWindow", "_sendMessage")]
 script = ExtResource("1_vclxl")
+_findMatch = NodePath("Control/FindMatchButton")
+_statusMessage = NodePath("Control/StatusMessage")
+_playersInLobby = NodePath("Control/InLobby")
+_playersInQueue = NodePath("Control/InQueue")
+_chatWindow = NodePath("Control/ChatWindow")
+_messageWindow = NodePath("Control/MessageWindow")
+_sendMessage = NodePath("Control/SendButton")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChatWindow" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -240.0
+offset_right = 500.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/ChatWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FindMatchButton" type="Button" parent="Control"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 220.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 25
+text = "Find Match"
+
+[node name="StatusMessage" type="Label" parent="Control"]
+visible = false
+layout_mode = 1
+offset_left = 230.0
+offset_top = 10.0
+offset_right = 530.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 25
+text = "Looking for players..."
+vertical_alignment = 1
+
+[node name="MessageWindow" type="TextEdit" parent="Control"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -347.5
+offset_top = -50.0
+offset_right = 252.5
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+wrap_mode = 1
+scroll_smooth = true
+scroll_fit_content_height = true
+minimap_width = 60
+
+[node name="SendButton" type="Button" parent="Control"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 257.5
+offset_top = -50.0
+offset_right = 347.5
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 23
+text = "Send"
+
+[node name="InLobby" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 10.0
+offset_right = -20.0
+offset_bottom = 40.0
+grow_horizontal = 0
+text = "Players in Lobby: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="InQueue" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 40.0
+offset_right = -20.0
+offset_bottom = 70.0
+grow_horizontal = 0
+text = "Players in Queue:"
+horizontal_alignment = 2
+vertical_alignment = 1

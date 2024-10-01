@@ -2,7 +2,6 @@ using Godot;
 using System.Collections.Generic;
 public partial class Shapeshifter : ChessPiece
 {
-	private PieceType shiftType = PieceType.None;
     public override List<Vector2I> GetAvailableMoves(ref Tile[][] board)
 	{
 		List<Vector2I> r = new List<Vector2I>();
@@ -118,7 +117,7 @@ public partial class Shapeshifter : ChessPiece
 
 	public override Command AbilityMove(Tile target)
     {
-        return new ShapeshiftCommand(this,shiftType);
+        return new ShapeshiftCommand(this,target.piece.PieceType);
     }
 	public override void OnSpecialHoldUpdate(PlayerFSM playerFSM){
 		//Shapeshifter menu logic
@@ -128,7 +127,6 @@ public partial class Shapeshifter : ChessPiece
 		//Shapeshifter logic
 		if(mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
 			if(playerFSM.hoverTile != null && playerFSM.abilityMoves.Contains(playerFSM.hoverTile.coordinates)){
-				shiftType = playerFSM.hoverTile.piece.PieceType;
 				playerFSM.TransitToState(typeof(PlayerSpecialReleaseState));
 			}
 			else
@@ -149,6 +147,10 @@ public partial class Shapeshifter : ChessPiece
     	}
 
 		public override void execute(ref Tile[][] board){
+			if(pickup == null)
+				GD.Print("Why is the pieceStruct null?!?!");
+			if(board[pickup.cord.Y][pickup.cord.X].piece == null)
+				GD.Print("Why is the piece null?!?!");
 			pickupPiece = board[pickup.cord.Y][pickup.cord.X].piece;
 			pickupPiece.Visible = false;
 			pickupPiece.Ability = false;
@@ -182,13 +184,13 @@ public partial class Shapeshifter : ChessPiece
 		}
 
 		public override void Serialize(Packet packet) {
-        	
-        	packet.Write(pieceType);
+        	packet.Write(pickup);
+        	packet.Write((int)pieceType);
     	}
 
     	public override void Deserialize(Packet packet) {
-  	      	
-        	pieceType = packet.ReadPieceType();
+  	      	pickup = packet.Read<PieceStruct>();
+        	pieceType = (PieceType)packet.ReadInt();
     	}
 	}
 }

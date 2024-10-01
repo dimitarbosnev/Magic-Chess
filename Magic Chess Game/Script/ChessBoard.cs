@@ -43,7 +43,7 @@ public partial class ChessBoard : Node3D
 	}
 
 	private void ExecuteCommand(Command command){
-		command.execute(ref board);//ref board);
+		command.execute(ref board);
 		executedCommands.Push(command);
 	}
 
@@ -125,6 +125,7 @@ public partial class ChessBoard : Node3D
 			default:
 			break;
 		}
+		piece.tile = null;
 		piece.targetPosition = Vector3.Zero;
 	}
 	private void SpawnBoard(){

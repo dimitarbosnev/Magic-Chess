@@ -2,5 +2,66 @@
 
 [ext_resource type="Script" path="res://Script/fsm/views/LoginView.cs" id="1_7isdo"]
 
-[node name="LoginScene" type="Node3D"]
+[node name="LoginScene" type="Node3D" node_paths=PackedStringArray("_ipField", "_textField", "_errorField", "_joinButton")]
 script = ExtResource("1_7isdo")
+_ipField = NodePath("Control/VBoxContainer/InputIP")
+_textField = NodePath("Control/VBoxContainer/InputName")
+_errorField = NodePath("Control/VBoxContainer/Error Message")
+_joinButton = NodePath("Control/VBoxContainer/Button")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.5
+offset_top = -46.5
+offset_right = 97.5
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Welcome Text" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Welcome to Magic Chess!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputIP" type="LineEdit" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+size_flags_vertical = 4
+placeholder_text = "Enter IP Adress"
+alignment = 1
+max_length = 20
+language = "en_GB"
+
+[node name="InputName" type="LineEdit" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+size_flags_vertical = 4
+placeholder_text = "Enter Name"
+alignment = 1
+max_length = 20
+language = "en_GB"
+
+[node name="Error Message" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "Join"

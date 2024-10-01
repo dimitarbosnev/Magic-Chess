@@ -22,22 +22,29 @@ namespace server
         public GameRoom(TCPGameServer pOwner) : base(pOwner)
         {
         }
-
+        private void TerminateGame()
+        {
+            Log.LogInfo("People left the game...", this);
+            while (memberCount > 0){
+                _server.GetLobbyRoom().AddMember(getMemberAt(0));
+                removeMember(getMemberAt(0));
+            }
+            
+            _server.CloseGameRoom(this);
+        }
         public void StartGame(TcpMessageChannel pPlayer1, TcpMessageChannel pPlayer2)
         {
             if (IsGameInPlay) throw new Exception("Programmer error duuuude.");
 
             IsGameInPlay = true;
+            PlayerInfo player1 = _server.GetPlayerInfo(pPlayer1);
+            PlayerInfo player2 = _server.GetPlayerInfo(pPlayer2);
+            GameStartEvent gameStart1 = new GameStartEvent(player1.playerName, player2.playerName, Team.Blue);
+            GameStartEvent gameStart2 = new GameStartEvent(player2.playerName, player1.playerName, Team.Red);
+
             addMember(pPlayer1);
             addMember(pPlayer2);
 
-            //GameStartEvent gameStart = new GameStartEvent();
-            //gameStart.player1Name = _server.GetPlayerInfo(pPlayer1).playerName;
-            //gameStart.player2Name = _server.GetPlayerInfo(pPlayer2).playerName;
-            PlayerJoinResponse gameStart1 = new PlayerJoinResponse();
-            PlayerJoinResponse gameStart2 = new PlayerJoinResponse();
-            gameStart1.playerTeam = Team.Blue;
-            gameStart2.playerTeam = Team.Red;
             pPlayer1.SendMessage(gameStart1);
             pPlayer2.SendMessage(gameStart2);
         }
@@ -62,7 +69,8 @@ namespace server
 
             if (oldMemberCount != newMemberCount)
             {
-                Log.LogInfo("People left the game...", this);
+                //If a player lost connection terminate game
+                TerminateGame();
             }
         }
 
@@ -75,42 +83,37 @@ namespace server
                 PlayerInfo winnerInfo = _server.GetPlayerInfo(getMemberAt(index - 1));
                 List<TcpMessageChannel> listOfMembers = GetMemberList();
 
-                while (memberCount > 0)
-                    removeMember(getMemberAt(0));
+                TerminateGame();
 
                 lobbyRoom.sendGameResult(listOfMembers, winnerInfo);
-               _server.CloseGameRoom(this);
             }*/
 
         }
         protected override void handleNetworkMessage(ISerializable pMessage, TcpMessageChannel pSender)
         {
-            if (pMessage is MakeMoveRequest)
-            {
-                handleMakeMoveRequest(pMessage as MakeMoveRequest, pSender);
-            }
-            else if(pMessage is Command)
-            {
-                handleCommandMessage(pMessage as Command, pSender);
-            }
+            if (pMessage is MakeMoveRequest) handleMakeMoveRequest(pMessage as MakeMoveRequest, pSender);
         }
-
-        private void handleCommandMessage(Command command, TcpMessageChannel pSender)
-        {
-            sendToAll(command);
-        }
-
         private void handleMakeMoveRequest(MakeMoveRequest pMessage, TcpMessageChannel pSender)
         {
+            //if (_board.teamTurn !=_server.GetPlayerInfo(pSender).playerTeam) return;
             //we have two players, so index of sender is 0 or 1, which means playerID becomes 1 or 2
-            int playerID = indexOfMember(pSender) + 1;
             //make the requested move (0-8) on the board for the player
             //_board.MakeMove(pMessage.move, playerID);
 
             //and send the result of the boardstate back to all clients
-            MakeMoveResult makeMoveResult = new MakeMoveResult();
-            makeMoveResult.whoMadeTheMove = playerID;
-            makeMoveResult.boardData = _board.GetBoardData();
+            //Board check
+
+            //if(!_board.GetBoardData().CheckBoard(pMessage.chessBoardData.board))
+            //{
+
+            //}
+
+            //TODO: command check
+
+            //switch turn
+                //_board.NextTurn();
+            MakeMoveResult makeMoveResult = new MakeMoveResult(pMessage.command);
+            //makeMoveResult.boardData = _board.GetBoardData();
             sendToAll(makeMoveResult);
         }
 

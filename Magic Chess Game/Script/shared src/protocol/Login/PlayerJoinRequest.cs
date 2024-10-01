@@ -6,6 +6,10 @@
     {
         public string name;
 
+        public PlayerJoinRequest(){}
+        public PlayerJoinRequest(string pName){
+            name = pName;
+        }
         public void Serialize(Packet pPacket)
         {
             pPacket.Write(name);

@@ -16,7 +16,22 @@ namespace server
         public LobbyRoom(TCPGameServer pOwner) : base(pOwner)
         {
         }
+        public override void Update()
+        {
+            base.Update();
+            Matchmaking();
+        }
 
+        private void Matchmaking(){
+            if (_readyMembers.Count >= 2)
+            {
+                TcpMessageChannel player1 = _readyMembers[0];
+                TcpMessageChannel player2 = _readyMembers[1];
+                removeMember(player1);
+                removeMember(player2);
+                _server.StartNewGame(player1, player2);
+            }
+        }
         protected override void addMember(TcpMessageChannel pMember)
         {
             base.addMember(pMember);
@@ -54,33 +69,21 @@ namespace server
 
         private void handleChatMessage(ChatMessage chatMessage, TcpMessageChannel pSender)
         {
-            PlayerInfo senderInfo = _server.GetPlayerInfo(pSender);
-            string messageWithName = senderInfo.playerName + ": " + chatMessage.message;
+            string messageWithName = _server.GetPlayerInfo(pSender).playerName + ": " + chatMessage.message;
             chatMessage.message = messageWithName;
             sendToAll(chatMessage);
         }
 
         private void handleReadyNotification(ChangeReadyStatusRequest pReadyNotification, TcpMessageChannel pSender)
         {
+            Log.LogInfo("Player Status " + pReadyNotification.ready, this);
             //if the given client was not marked as ready yet, mark the client as ready
-            if (pReadyNotification.ready)
-            {
-                if (!_readyMembers.Contains(pSender)) _readyMembers.Add(pSender);
-            }
-            else //if the client is no longer ready, unmark it as ready
-            {
+            if (pReadyNotification.ready && !_readyMembers.Contains(pSender))
+                _readyMembers.Add(pSender);
+            else if(!pReadyNotification.ready) //if the client is no longer ready, unmark it as ready
                 _readyMembers.Remove(pSender);
-            }
 
             //do we have enough people for a game and is there no game running yet?
-            if (_readyMembers.Count >= 2)
-            {
-                TcpMessageChannel player1 = _readyMembers[0];
-                TcpMessageChannel player2 = _readyMembers[1];
-                removeMember(player1);
-                removeMember(player2);
-                _server.StartNewGame(player1, player2);
-            }
 
             //(un)ready-ing / starting a game changes the lobby/ready count so send out an update
             //to all clients still in the lobby
@@ -92,6 +95,7 @@ namespace server
             LobbyInfoUpdate lobbyInfoMessage = new LobbyInfoUpdate();
             lobbyInfoMessage.memberCount = memberCount;
             lobbyInfoMessage.readyCount = _readyMembers.Count;
+            Log.LogInfo("ReadyCount " + _readyMembers.Count, this);
             sendToAll(lobbyInfoMessage);
         }
 
@@ -117,7 +121,6 @@ namespace server
             winnerMessage.message = "'" + winner.playerName + "' has won the game!";
             sendToAll(winnerMessage);
             sendLobbyUpdateCount();
-
         }
 
     }

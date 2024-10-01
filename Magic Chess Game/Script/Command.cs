@@ -19,6 +19,11 @@ public class PieceStruct : ISerializable{
         pieceType = pStruct.pieceType;
         team = pStruct.team;
     }
+    public bool PieceEqual(PieceStruct obj)
+    {
+       return this.cord == obj.cord && this.pieceID == obj.pieceID && this.team == obj.team && this.pieceType == obj.pieceType;
+    }
+    
     public void Serialize(Packet packet){
         packet.Write(cord);
         packet.Write(pieceID);
@@ -38,12 +43,11 @@ public class TileStruct: ISerializable{
         cord = pStruct.cord;
         if(pStruct.piece != null)
             piece = new PieceStruct(pStruct.piece);
-        else
-            piece = null;
     }
     public TileStruct(Tile tile){
         cord = tile.coordinates;
-        piece = new PieceStruct(tile.piece);
+        if(tile.piece != null)
+            piece = new PieceStruct(tile.piece);
     }
     public void Serialize(Packet packet){
         packet.Write(cord);
@@ -86,6 +90,7 @@ public class MoveCommand : Command {
         EventBus<NewTurnEvent>.Invoke(new NewTurnEvent(targetTile.piece.Team));
     }
     public override void reverse(ref Tile[][] board) {
+        GD.Print("Command Reversing");
         Tile targetTile = board[target.cord.Y][target.cord.X];
         if (killedPiece != null)
             ChessBoard.AssignPiece(killedPiece, targetTile);

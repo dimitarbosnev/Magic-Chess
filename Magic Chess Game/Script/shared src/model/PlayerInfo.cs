@@ -6,4 +6,6 @@
     public class PlayerInfo 
     {
         public string playerName { get; set; }
+
+        public Team playerTeam { get; set; }
     }

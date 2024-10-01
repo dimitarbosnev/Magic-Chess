@@ -100,7 +100,7 @@ namespace server
 		 */
 		private void checkFaultyMember(TcpMessageChannel pMember)
 		{
-			if (!pMember.Connected) removeAndCloseMember(pMember);
+			if (!pMember.Connected) removeFaultyMember(pMember);
 		}
 
 		/**
@@ -115,10 +115,18 @@ namespace server
 			Log.LogInfo("Removed client at " + pMember.GetRemoteEndPoint(), this);
 		}
 
-		/**
+        protected void removeFaultyMember(TcpMessageChannel pMember)
+        {
+            removeMember(pMember);
+            _server.RemovePlayerInfo(pMember);
+
+            Log.LogInfo("Removed client at " + pMember.GetRemoteEndPoint(), this);
+        }
+
+        /**
 		 * Iterate over all members and get their network messages.
 		 */
-		protected void receiveAndProcessNetworkMessages()
+        protected void receiveAndProcessNetworkMessages()
 		{
 			safeForEach(receiveAndProcessNetworkMessagesFromMember);
 		}

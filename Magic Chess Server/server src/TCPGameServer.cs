@@ -45,8 +45,6 @@ namespace server
             _lobbyRoom = new LobbyRoom(this);
         }
 
-        TcpMessageChannel pending1;
-        TcpMessageChannel pending2;
         private void run()
         {
             Log.LogInfo("Starting server on port 55555", this, ConsoleColor.Gray);
@@ -69,22 +67,11 @@ namespace server
                     TcpMessageChannel channel = new TcpMessageChannel(client);
                     //and add it to the login room for further 'processing'
                     _playerInfo.Add(channel, new PlayerInfo());
-                    if (pending1 == null)
-                        pending1 = channel;
-                    else if(pending2 == null)
-                        pending2 = channel;
-                    //_loginRoom.AddMember(channel);
-                }
-
-                if(pending1 !=  null && pending2 != null)
-                {
-                    StartNewGame(pending1,pending2);
-                    pending1 = null;
-                    pending2 = null;
+                    _loginRoom.AddMember(channel);
                 }
                 //now update every single room
-                //_loginRoom.Update();
-                //_lobbyRoom.Update();
+                _loginRoom.Update();
+                _lobbyRoom.Update();
                 foreach (GameRoom room in _gameRooms) { room.Update(); }
                 foreach (GameRoom room in _gamesToClose) { _gameRooms.Remove(room); }
                 _gamesToClose.Clear();
@@ -141,5 +128,7 @@ namespace server
     }
 
 }
+
+
 
 

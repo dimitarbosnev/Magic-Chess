@@ -10,10 +10,10 @@
 
   <ItemGroup>
     <Reference Include="GodotSharp">
-      <HintPath>..\NewMagicChess\magic-chess\.godot\mono\temp\bin\Debug\GodotSharp.dll</HintPath>
+      <HintPath>..\Magic Chess Game\.godot\mono\temp\bin\Debug\GodotSharp.dll</HintPath>
     </Reference>
     <Reference Include="Magic Chess">
-      <HintPath>..\NewMagicChess\magic-chess\.godot\mono\temp\bin\Debug\Magic Chess.dll</HintPath>
+      <HintPath>..\Magic Chess Game\.godot\mono\temp\bin\Debug\Magic Chess.dll</HintPath>
     </Reference>
   </ItemGroup>
 

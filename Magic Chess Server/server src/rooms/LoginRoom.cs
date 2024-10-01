@@ -50,18 +50,23 @@ namespace server
         {
             Log.LogInfo("Moving new client to accepted...", this);
 
-            PlayerJoinResponse playerJoinResponse = new PlayerJoinResponse();
-            List<PlayerInfo> playerInfos = _server.GetPlayerInfo(x => x.playerName == pMessage.name);
-            /*if (playerInfos.Count > 0) { playerJoinResponse.result = PlayerJoinResponse.RequestResult.REJECTED; }
-            else {
-                playerJoinResponse.result = PlayerJoinResponse.RequestResult.ACCEPTED;
-                PlayerInfo playerInfo = _server.GetPlayerInfo(pSender);
-                playerInfo.playerName = pMessage.name;
-                removeMember(pSender);
-                _server.GetLobbyRoom().AddMember(pSender);
-            }
-            pSender.SendMessage(playerJoinResponse);*/
+            
+            List<PlayerInfo> playerInfoList = _server.GetPlayerInfo(x => x.playerName == pMessage.name);
+            if (playerInfoList.Count == 0)
+            {
+                _server.GetPlayerInfo(pSender).playerName = pMessage.name;
 
+                _server.GetLobbyRoom().AddMember(pSender);
+                removeMember(pSender);
+            }
+            else
+            {
+                PlayerJoinResponse playerJoinResponse;
+                playerJoinResponse = new PlayerJoinResponse(PlayerJoinResponse.RequestResult.REJECTED, "Duplicate Name");
+                pSender.SendMessage(playerJoinResponse);
+            }
+
+            
         }
 
     }

@@ -1,24 +1,25 @@
-﻿/**
+﻿
+using Godot;
+
+/**
  * 'Chat' state while you are waiting to start a game where you can signal that you are ready or not.
  */
 public class LobbyState : ApplicationStateWithView<LobbyView>
 {
-    private bool autoQueueForGame = false;
-
     public override void EnterState()
     {
         base.EnterState();
-
-        if (autoQueueForGame)
-        {
-            onReadyToggleClicked(true);
-        }
+        view.onMessageSend += onTextEntered;
+        view.onFindButton += onReadyToggleClicked;
+        while(fsm.channel.HasMessage())
+			handleNetworkMessage(fsm.channel.ReceiveMessage());
     }
 
     public override void ExitState()
     {
+        view.onMessageSend -= onTextEntered;
+        view.onFindButton -= onReadyToggleClicked;
         base.ExitState();
-        
     }
 
     /**
@@ -26,7 +27,7 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
      */
     private void onTextEntered(string pText)
     {
-        ChatMessage chatMessage= new ChatMessage();
+        ChatMessage chatMessage = new ChatMessage();
         chatMessage.message = pText;
         fsm.channel.SendMessage(chatMessage);
         //addOutput("(noone else will see this because I broke the chat on purpose):"+pText);        
@@ -37,13 +38,17 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
      */
     private void onReadyToggleClicked(bool pNewValue)
     {
-        ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
-        msg.ready = pNewValue;
+        GD.Print(pNewValue);
+        ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest
+        {
+            ready = pNewValue
+        };
         fsm.channel.SendMessage(msg);
     }
 
     private void addOutput(string pInfo)
     {
+        view.chatWindow.AddText(pInfo + "\n");
     }
 
     /// //////////////////////////////////////////////////////////////////
@@ -65,7 +70,7 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
     private void handleChatMessage(ChatMessage pMessage)
     {
         //just show the message
-        addOutput(pMessage.message);
+       addOutput(pMessage.message);
     }
     private void handleRoomJoinedEvent(RoomJoinedEvent pMessage)
     {
@@ -78,6 +83,10 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
 
     private void handleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
     {
+        GD.Print("Players in Lobby: " + pMessage.memberCount);
+        view.playersInLobby.Text = "Players in Lobby: " + pMessage.memberCount.ToString();
+        GD.Print("Players in Queue: " + pMessage.readyCount);
+        view.playersInQueue.Text = "Players in Queue: " + pMessage.readyCount.ToString();
     }
 
 }

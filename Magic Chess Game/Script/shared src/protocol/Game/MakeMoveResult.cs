@@ -4,19 +4,24 @@
      */
     public class MakeMoveResult : ISerializable
     {
-        public int whoMadeTheMove;
-        public ServerChessBoard boardData;
+        public Command command;
+        //public ChessBoardData boardData;
 
+        public MakeMoveResult(){}
+
+        public MakeMoveResult(Command pCommand){
+            command = pCommand;
+        }
         public void Serialize(Packet pPacket)
         {
-            pPacket.Write(whoMadeTheMove);
-            pPacket.Write(boardData);
+            pPacket.Write(command);
+            //pPacket.Write(boardData);
         }
 
         public void Deserialize(Packet pPacket)
         {
-            whoMadeTheMove = pPacket.ReadInt();
-            boardData = pPacket.Read<ServerChessBoard>();
+            command = pPacket.Read<Command>();
+            //boardData = pPacket.Read<ChessBoardData>();
         }
     }
 

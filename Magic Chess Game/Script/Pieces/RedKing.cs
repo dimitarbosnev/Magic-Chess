@@ -121,18 +121,18 @@ public partial class RedKing : ChessPiece
 		public PieceStruct pickup{get; protected set;}
 		public PieceStruct target{get; protected set;}
 		private ChessPiece pickupPiece;
-		public Command reverseedCommand{get; protected set;}
+		public Command reverseedCommand;
 
 		public ReverseTurnCommand() : base(){}
     	public ReverseTurnCommand(ChessPiece pPickup, ChessPiece pTarget){
         	pickup = new PieceStruct(pPickup);
         	target = new PieceStruct(pTarget);
-			reverseedCommand = ChessBoard.GetCommandPeek();
     	}
 		//TODO: fix
 		public override void execute(ref Tile[][] board){
 			pickupPiece = board[pickup.cord.Y][pickup.cord.X].piece;
 			pickupPiece.Ability = false;
+			reverseedCommand = ChessBoard.GetCommandPeek();
 			reverseedCommand.reverse(ref board);
 		}
 		//TODO: fix
@@ -144,13 +144,11 @@ public partial class RedKing : ChessPiece
 		public override void Serialize(Packet packet) {
         	packet.Write(pickup);
         	packet.Write(target);
-        	packet.Write(reverseedCommand);
     	}
 
     	public override void Deserialize(Packet packet) {
   	      	pickup = packet.Read<PieceStruct>();
         	target = packet.Read<PieceStruct>();
-        	reverseedCommand = packet.Read<Command>();
     	}
 	}
 }

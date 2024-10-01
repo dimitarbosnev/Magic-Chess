@@ -1,27 +1,26 @@
+
+using Godot;
+
 /**
  * Starting state where you can connect to the server.
  */
 public class LoginState : ApplicationStateWithView<LoginView>
 {
-    private string _serverIP = null;
-    private int _serverPort = 0;
-    private bool autoConnectWithRandomName = false;
+    private int _serverPort = 55555;
 
     public override void EnterState()
     {
         base.EnterState();
         //If flagged, generate a random name and connect automatically
-        if (autoConnectWithRandomName)
-        {
-            Connect();
-        }
+        view.joinButton.Pressed += Connect;
     }
 
     public override void ExitState ()
     {
+        view.joinButton.Pressed -= Connect;
         base.ExitState();
 
-        //stop listening to button clicks
+        //stop listening to button cicks
     }
 
     /**
@@ -29,13 +28,26 @@ public class LoginState : ApplicationStateWithView<LoginView>
      */
     private void Connect()
     {
+        if (view.userName == "")
+        {
+            view.errorField.Text = "Please enter a name first";
+            return;
+        }
 
+        //connect to the server and on success try to join the lobby
+        if (fsm.channel.Connect(view.IPaddress, _serverPort))
+        {
+            tryToJoinLobby();
+        } else
+        {
+            view.errorField.Text = "Oops, couldn't connect:"+string.Join("\n", fsm.channel.GetErrors());
+        }
     }
 
     private void tryToJoinLobby()
     {
         //Construct a player join request based on the user name 
-        PlayerJoinRequest playerJoinRequest = new PlayerJoinRequest();
+        PlayerJoinRequest playerJoinRequest = new PlayerJoinRequest(view.userName);
         fsm.channel.SendMessage(playerJoinRequest);
     }
 
@@ -52,6 +64,7 @@ public class LoginState : ApplicationStateWithView<LoginView>
     
     protected override void handleNetworkMessage(ISerializable pMessage)
     {
+        //GD.Print("Recived a message!" + pMessage.GetType().Name);
         if (pMessage is PlayerJoinResponse) handlePlayerJoinResponse (pMessage as PlayerJoinResponse);
         else if (pMessage is RoomJoinedEvent) handleRoomJoinedEvent (pMessage as RoomJoinedEvent);
     }
@@ -62,10 +75,10 @@ public class LoginState : ApplicationStateWithView<LoginView>
         //Dont do anything with this info at the moment, just leave it to the RoomJoinedEvent
         //We could handle duplicate name messages, get player info etc here
         
-        //if (pMessage.result == PlayerJoinResponse.RequestResult.REJECTED)
-        //{
-             //view.TextConnectResults = "Duplicate name!";
-        //}
+        if (pMessage.result == PlayerJoinResponse.RequestResult.REJECTED)
+        {
+            view.errorField.Text = pMessage.errorMsg;
+        }
         
     }
 

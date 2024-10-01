@@ -68,6 +68,16 @@ public partial class ApplicationFSM : Node3D
 	 * Search for a child instance which matches the requested state class,
 	 * Enter it and Exit all others.
 	 */
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed){
+			switch(keyEvent.Keycode){
+				case Key.Escape:
+					GetTree().Quit();
+				break;
+			}
+		}
+	}
 	public void ChangeState<T>() where T : ApplicationState
 	{
 		//delegates to a general change state method
@@ -104,8 +114,8 @@ public partial class ApplicationFSM : Node3D
         base._Notification(what);
 		switch(what){
 			case (int)NotificationWMCloseRequest:
-				ChangeState(null);
 				channel.Close();
+				GD.Print("Closing Application");
 			break;
 		}
     }

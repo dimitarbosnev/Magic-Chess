@@ -10,7 +10,7 @@ public partial class Tile : MeshInstance3D
 	private ChessPiece _piece;
 	public ChessPiece piece{
 		get{return _piece;}
-		set{_piece = value; if(_piece != null)_piece.tile = this;}
+		set{_piece = value; if(value != null) _piece.tile = this;}
 	}
 
 	// Called when the node enters the scene tree for the first time.

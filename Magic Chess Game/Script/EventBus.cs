@@ -43,17 +43,13 @@ public class NewTurnEvent : Event{
         team = pTeam == Team.Red? Team.Blue : Team.Red;
     }
 }
+public class GameSetupEvent : Event{
+     public Team team{get; private set;}
 
-public class PlayerInitEvent : Event{
-    public PlayerInitEvent(){}
+     public GameSetupEvent(Team pTeam){
+        team = pTeam;
+     }
 }
-
-public class ServerJoinEvent : Event{
-
-    public Team team {get; private set;}
-    public ServerJoinEvent(Team pTeam){ team = pTeam;}
-}
-
 public class CommandMessageRecived : Event{
 
     public Command command {get; private set;}

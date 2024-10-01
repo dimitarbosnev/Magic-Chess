@@ -6,16 +6,27 @@
     public class PlayerJoinResponse : ISerializable
     {
         public enum RequestResult { ACCEPTED, REJECTED}; //can add different result states if you want
-        public RequestResult result;
+        public RequestResult result{get; private set;}
 
-        public void Serialize(Packet pPacket)
-        {
-           pPacket.Write((int)result);
+        public string errorMsg{get; private set;}
+        public PlayerJoinResponse(){}
+
+        public PlayerJoinResponse(RequestResult pResult, string pErrorMsg = ""){
+            result = pResult;
+            errorMsg = pErrorMsg;
         }
 
-        public void Deserialize(Packet pPacket)
+
+        public void Serialize(Packet packet)
         {
-            result = (RequestResult)pPacket.ReadInt();
+           packet.Write((int)result);
+           packet.Write(errorMsg);        
+        }
+
+        public void Deserialize(Packet packet)
+        {
+            result = (RequestResult)packet.ReadInt();
+            errorMsg = packet.ReadString();
         }
     }
 

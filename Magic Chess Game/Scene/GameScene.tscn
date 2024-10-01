@@ -31,8 +31,45 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_npym5"]
 
-[node name="GameScene" type="Node3D"]
+[node name="GameScene" type="Node3D" node_paths=PackedStringArray("_thisPlayer", "_enemyPlayer", "_chessBoard", "_playerFSM")]
 script = ExtResource("1_0hlqy")
+_thisPlayer = NodePath("Control/ThisPlayer")
+_enemyPlayer = NodePath("Control/EnemyPlayer")
+_chessBoard = NodePath("Board")
+_playerFSM = NodePath("Camera3D/Node3D")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ThisPlayer" type="Label" parent="Control"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 121.0
+offset_bottom = 33.0
+theme_override_font_sizes/font_size = 25
+text = "Player1: Blue"
+vertical_alignment = 1
+
+[node name="EnemyPlayer" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -116.0
+offset_top = 10.0
+offset_right = -20.0
+offset_bottom = 33.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "Player2: Red"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fi0bd")

@@ -32,8 +32,6 @@ using Godot;
 		/// WRITE METHODS
 
 		public void Write (int pInt)							{		writer.Write(pInt);			}
-		public void Write (PieceType pPieceType)				{		writer.Write((byte)pPieceType);}
-		public void Write (Team pTeam)							{		writer.Write((byte)pTeam);	}
 		public void Write(Vector2I cord)						{		writer.Write(cord.X);
 																		writer.Write(cord.Y);		}
 		public void Write (string pString)						{		writer.Write(pString);		}
@@ -49,8 +47,6 @@ using Godot;
 		/// READ METHODS
 
 		public int ReadInt() { return reader.ReadInt32(); }
-		public PieceType ReadPieceType() {return (PieceType)reader.ReadByte();}
-		public Team ReadTeam()	{return	(Team)reader.ReadByte();}
 		public Vector2I ReadVector2I() {return new Vector2I(reader.ReadInt32(), reader.ReadInt32());}
 		public string ReadString() { return reader.ReadString(); }
 		public bool ReadBool() { return reader.ReadBoolean(); }

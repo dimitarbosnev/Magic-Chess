@@ -32,8 +32,8 @@ public partial class CameraRotation : Camera3D
 	public void RotateCamera(Vector2 mousePos,Vector2 prevPosition, float delta){
 		Vector2 deltaPos = prevPosition - mousePos;
 		Position = targetPosition;
-		GlobalRotate(Vector3.Right,deltaPos.Y*rotationSpeed*delta);
-		GlobalRotate(Vector3.Up,deltaPos.X*rotationSpeed*delta);
+		Rotate(Vector3.Right,deltaPos.Y*rotationSpeed*delta);
+		Rotate(Vector3.Up,deltaPos.X*rotationSpeed*delta);
 		Rotation = new Vector3(Rotation.X,Rotation.Y,0);
 		TranslateObjectLocal(Vector3.Back * targetDistance);
 

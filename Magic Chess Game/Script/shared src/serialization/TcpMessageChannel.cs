@@ -19,7 +19,6 @@ using System.Net.Sockets;
         private TcpClient _client = null;                               //the underlying client connection
         private NetworkStream _stream = null;                           //the client's cached stream
         private IPEndPoint _remoteEndPoint = null;                      //cached endpoint info so we can still access it, even if the connection closes
-        
         //stores all errors that occurred (can be used for debug info to get an idea of where and why the channel failed)
         private List<Exception> _errors = new List<Exception>();
 
@@ -27,7 +26,7 @@ using System.Net.Sockets;
         private static ISerializable _lastSerializedMessage = null;
         private static byte[] _lastSerializedBytes = null;
 
-        /**
+        /*
          * Creates a TcpMessageChannel based on an existing (and connected) TcpClient.
          * This is usually used on the server side after accepting a TcpClient from a TcpListener.
          */
