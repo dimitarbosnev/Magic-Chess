@@ -3,148 +3,72 @@ using System.Collections.Generic;
 
 public partial class Centaur : ChessPiece
 {
-    public override List<Vector2I> GetAvailableMoves(ref Tile[][] board)
-	{
-		List<Vector2I> r = new List<Vector2I>();
-		int y;
-		int dirX = coordinates.Y % 2 == 0? -1 : 1;
-		int x = coordinates.X;
-		
-		//"+" straight
-		y = coordinates.Y + 3;
-		if(y < board.Length){
-		 if(x >= 0 && x < board[y].Length && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-			r.Add(new Vector2I(x,y));
-		if(x + dirX >= 0 && x + dirX < board[y].Length && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-			r.Add(new Vector2I(x+dirX,y));
-		}
-
-		//"-" straight
-		y = coordinates.Y -3;
-		if(y >= 0){
-		 if(x >= 0 && x < board[y].Length && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-			r.Add(new Vector2I(x,y));
-		if(x + dirX >= 0 && x + dirX < board[y].Length && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-			r.Add(new Vector2I(x+dirX,y));
-		}
-
-		// "+" diagnal
-		y = coordinates.Y + 1;
-		if(y < board.Length){
-			dirX = coordinates.Y % 2 == 0? 2 : 3;
-			if(x + dirX < board[y].Length && (board[y][x].piece == null || board[y][x].piece.Team != Team)) 
-				r.Add(new Vector2I(x+dirX,y));
-			dirX = coordinates.Y % 2 == 0? -3 : -2;
-			if(x + dirX >= 0 && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-				r.Add(new Vector2I(x+dirX,y));
-		}
-
-		y = coordinates.Y + 2;
-		if(y < board.Length){
-			dirX = 2;
-			if(x + dirX < board[y].Length && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-				r.Add(new Vector2I(x+dirX,y));
-			dirX = -2;
-			if(x + dirX >= 0 && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-				r.Add(new Vector2I(x+dirX,y));
-		}
-		// "-" diagnal
-		y = coordinates.Y - 1;
-		if(y >= 0){
-			dirX = coordinates.Y % 2 == 0? 2 : 3;
-			if(x + dirX < board[y].Length && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-				r.Add(new Vector2I(x+dirX,y));
-			dirX = coordinates.Y % 2 == 0? -3 : -2;
-			if(x + dirX >= 0 && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-				r.Add(new Vector2I(x+dirX,y));
-		}
-
-		y = coordinates.Y - 2;
-		if(y >= 0){
-		dirX = 2;
-		if(x + dirX < board[y].Length && (board[y][x].piece == null || board[y][x].piece.Team != Team))
-			r.Add(new Vector2I(x+dirX,y));
-		dirX = -2;
-		if(x + dirX >= 0 && (board[y][x].piece == null || board[y][x].piece.Team != Team)) 
-			r.Add(new Vector2I(x+dirX,y));
-		}
-		return r;
-	}
-
-	public override List<Vector2I> GetAbilityMoves(ref Tile[][] board)
-	{
-		List<Vector2I> r = new List<Vector2I>();
-		int y;
-		int x;
-
-		//"+" straight
-		y =  coordinates.Y + 2;
-		x = coordinates.X;
-		if(y < board.Length && board[y][x].piece == null)
-			r.Add(new Vector2I(x,y));
-		//"-" straight
-		y = coordinates.Y - 2;
-		if(y >= 0 && board[y][x].piece == null)
-			r.Add(new Vector2I(x,y));
-		
-		y = coordinates.Y + 1;
-
-		if(y < board.Length){
-			x = coordinates.X + (coordinates.Y % 2 == 0?-2:-1);
-			if(x >= 0 && board[y][x].piece == null)
-				r.Add(new Vector2I(x,y));
-
-			x = coordinates.X + (coordinates.Y % 2 == 0? 1:2);
-			if(x >= 0 && board[y][x].piece == null)
-				r.Add(new Vector2I(x,y));
-		}
-
-		y = coordinates.Y - 1;
-		if(y >= 0){
-			x = coordinates.X + (coordinates.Y % 2 == 0?-2:-1);
-			if(x >= 0 && board[y][x].piece == null)
-				r.Add(new Vector2I(x,y));
-
-			x = coordinates.X + (coordinates.Y % 2 == 0? 1:2);
-			if(x >= 0 && board[y][x].piece == null)
-				r.Add(new Vector2I(x,y));
-		}
-
-		return r;
-	}
-    public override Command AbilityMove(Tile target){
-        return new RepositionCommand(this, target);
+    public override Command AbilityMove(BoardStruct target){
+        return new RepositionCommand(SharedUtils.SetTileStruct(this), SharedUtils.SetTileStruct(target));
     }
 
 	public class RepositionCommand : Command{
-		public PieceStruct pickup{get; protected set;}
+		public TileStruct pickup{get; protected set;}
 		public TileStruct target{get; protected set;}
 		private ChessPiece chessPiece;
 		public RepositionCommand() : base(){}
-    	public RepositionCommand(ChessPiece pPickup, Tile pTarget){
-        	pickup = new PieceStruct(pPickup);
-        	target = new TileStruct(pTarget);
+    	public RepositionCommand(TileStruct pPickup, TileStruct pTarget){
+        	pickup = pPickup;
+        	target = pTarget;
     	}
 
-		public override void execute(ref Tile[][] board){
-			chessPiece = board[pickup.cord.Y][pickup.cord.X].piece;
-			chessPiece.Ability = false;
-			ChessBoard.AssignPiece(chessPiece, board[target.cord.Y][target.cord.X]);
-			EventBus<NewTurnEvent>.Invoke(new NewTurnEvent(chessPiece.Team));
+		public override void execute(ref BoardStruct[][] board){
+			BoardStruct targetTile = board[target.y][target.x];
+
+			if(pickup.piece != null && target.piece != null){
+            	ChessPiece chessPiece1 = ChessBoard.Instance.GetPieceById(pickup.piece.pieceID);
+            	ChessBoard.Instance.AssignPiece(chessPiece1, targetTile);
+
+				chessPiece1.Ability = false;
+				EventBus<NewTurnEvent>.Invoke(new NewTurnEvent(chessPiece1.Team));
+        	}
 		}
 
-        public override void reverse(ref Tile[][] board){
-            chessPiece.Ability = true;
-			ChessBoard.AssignPiece(chessPiece,board[pickup.cord.Y][pickup.cord.X]);
+        public override void reverse(ref BoardStruct[][] board){
+			BoardStruct pickupTile = board[pickup.y][pickup.x];
+
+			if(pickup.piece != null){
+            	ChessPiece chessPiece1 = ChessBoard.Instance.GetPieceById(pickup.piece.pieceID);
+            	ChessBoard.Instance.AssignPiece(chessPiece1, pickupTile);
+        	}
         }
 
+		public override bool validateMove(ref PieceStruct[][] boardData){
+			bool valid1 = false;
+        	bool valid2 = false;
+
+			if(pickup.piece == null || boardData[pickup.y][pickup.x] == null) return false;
+			if(target.piece != null || boardData[target.y][target.x] != null) return false;
+
+        	if(SharedUtils.ComparePieceStructs(pickup.piece,boardData[pickup.y][pickup.x]))
+        	    valid1 = true;
+        	if(SharedUtils.ComparePieceStructs(target.piece,boardData[target.y][target.x]))
+        	    valid2 = true;
+				
+        	return valid1 && valid2;
+    	}
+    	public override void updateBoardData(ref PieceStruct[][] boardData){
+			boardData[pickup.y][pickup.x] = null;
+        	boardData[target.y][target.x] = pickup.piece;
+			boardData[pickup.y][pickup.x].ability = false;
+		}
+    	public override void revertBoardData(ref PieceStruct[][] boardData){
+			boardData[pickup.y][pickup.x] = pickup.piece;
+        	boardData[target.y][target.x] = null;
+			boardData[pickup.y][pickup.x].ability = true;
+		}
 		public override void Serialize(Packet packet) {
         	packet.Write(pickup);
         	packet.Write(target);
     	}
 
     	public override void Deserialize(Packet packet) {
-  	      	pickup = packet.Read<PieceStruct>();
+  	      	pickup = packet.Read<TileStruct>();
         	target = packet.Read<TileStruct>();
     	}
 	}

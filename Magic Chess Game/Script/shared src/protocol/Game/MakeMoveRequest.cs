@@ -6,23 +6,24 @@
     public class MakeMoveRequest : ISerializable
     {
         public Command command {get; private set;}
-        //public ChessBoardData chessBoardData;
+        public ChessBoardData chessBoardData;
 
         public MakeMoveRequest(){}
 
-        public MakeMoveRequest(Command pCommand){
+        public MakeMoveRequest(Command pCommand,ChessBoardData pChessBoardData){
             command = pCommand;
+            chessBoardData = pChessBoardData;
         }
         public void Serialize(Packet pPacket)
         {
             pPacket.Write(command);
-            //pPacket.Write(chessBoardData);
+            pPacket.Write(chessBoardData);
         }
 
         public void Deserialize(Packet pPacket)
         {
             command = pPacket.Read<Command>();
-            //chessBoardData = pPacket.Read<ChessBoardData>();
+            chessBoardData = pPacket.Read<ChessBoardData>();
         }
     }
 

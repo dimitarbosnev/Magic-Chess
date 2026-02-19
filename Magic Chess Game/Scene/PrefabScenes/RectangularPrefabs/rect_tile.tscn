@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdeq66yn4xxqv"]
+
+[ext_resource type="Script" path="res://Script/Tile.cs" id="1_1dnc1"]
+[ext_resource type="Script" path="res://Script/SubViewportScript.cs" id="2_tapkk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rn21s"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jy0um"]
+margin = 0.0
+size = Vector3(1, 1, 0.1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6na26"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[node name="MeshInstance3D" type="MeshInstance3D" node_paths=PackedStringArray("label")]
+mesh = SubResource("BoxMesh_rn21s")
+script = ExtResource("1_1dnc1")
+label = NodePath("Sprite3D/SubViewport/Label")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_jy0um")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.873254, 0.487265, 0, -0.487265, 0.873254, 0, 0.2, 0)
+texture = SubResource("ViewportTexture_6na26")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" node_paths=PackedStringArray("label")]
+size = Vector2i(72, 23)
+script = ExtResource("2_tapkk")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Blablabla"
+horizontal_alignment = 1
+vertical_alignment = 1

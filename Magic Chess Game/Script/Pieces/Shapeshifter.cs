@@ -2,122 +2,9 @@ using Godot;
 using System.Collections.Generic;
 public partial class Shapeshifter : ChessPiece
 {
-    public override List<Vector2I> GetAvailableMoves(ref Tile[][] board)
-	{
-		List<Vector2I> r = new List<Vector2I>();
-
-		if(coordinates.X > 0)
-		for (int a = coordinates.X - 1; a >=0; a--){
-			if(board[coordinates.Y][a].piece == null)
-				r.Add(new Vector2I(a,coordinates.Y));
-			else if(board[coordinates.Y][a].piece.Team != Team){
-				r.Add(new Vector2I(a, coordinates.Y));
-				break;
-			}
-			else
-				break;
-		}
-
-		if(coordinates.X < board[coordinates.Y].Length)
-		for (int a = coordinates.X + 1; a < board[coordinates.Y].Length; a++){
-			if(board[coordinates.Y][a].piece == null)
-				r.Add(new Vector2I(a,coordinates.Y));
-			else if(board[coordinates.Y][a].piece.Team != Team){
-				r.Add(new Vector2I(a, coordinates.Y));
-				break;
-			}
-			else
-				break;
-		}
-
-		int x = coordinates.X;
-		for (int y = coordinates.Y-1; y >= 0; y--)
-		{
-			x += y % 2 == 0?1:0;
-			if(x < board[y].Length){
-				if(board[y][x].piece == null)
-					r.Add(new Vector2I(x, y));
-				else if( board[y][x].piece.Team != Team){
-					r.Add(new Vector2I(x, y));
-					break;
-				}
-				else
-					break;
-			}
-			else
-				break;
-		}
-
-		x = coordinates.X;
-		for (int y = coordinates.Y-1; y >= 0; y--)
-		{
-			x += y % 2 == 0?0:-1;
-			if( x >= 0){
-				if(board[y][x].piece == null)
-					r.Add(new Vector2I(x, y));
-				else if( board[y][x].piece.Team != Team){
-					r.Add(new Vector2I(x, y));
-					break;
-				}
-				else
-					break;
-			}
-			else
-				break;
-		}
-
-		x = coordinates.X;
-		for (int y = coordinates.Y+1; y < board.Length; y++)
-		{
-			x += y % 2 == 0?0:-1;
-			if( x >= 0){
-				if(board[y][x].piece == null)
-					r.Add(new Vector2I(x, y));
-				else if( board[y][x].piece.Team != Team){
-					r.Add(new Vector2I(x, y));
-					break;
-				}
-				else
-					break;
-			}
-			else
-				break;
-		}
-
-		x = coordinates.X;
-		for (int y = coordinates.Y+1; y < board.Length; y++)
-		{
-			x += y % 2 == 0?1:0;
-			if(x < board[y].Length){
-				if(board[y][x].piece == null)
-					r.Add(new Vector2I(x, y));
-				else if( board[y][x].piece.Team != Team){
-					r.Add(new Vector2I(x, y));
-					break;
-				}
-				else
-					break;
-			}
-			else
-				break;
-		}
-		
-		return r;
-	}
-	public override List<Vector2I> GetAbilityMoves(ref Tile[][] board)
-	{
-		List<Vector2I> r = new List<Vector2I>();
-		foreach(Tile[] row in board)
-			foreach(Tile tile in row)
-				if(tile.piece != null && tile.piece != this &&
-				   tile.piece.PieceType != PieceType.RedKing && tile.piece.PieceType != PieceType.BlueKing)
-					r.Add(tile.coordinates);
-		return r;
-	}
-
-	public override Command AbilityMove(Tile target)
+	public override Command AbilityMove(BoardStruct target)
     {
-        return new ShapeshiftCommand(this,target.piece.PieceType);
+        return new ShapeshiftCommand(SharedUtils.SetTileStruct(this),target.piece.PieceType);
     }
 	public override void OnSpecialHoldUpdate(PlayerFSM playerFSM){
 		//Shapeshifter menu logic
@@ -126,60 +13,67 @@ public partial class Shapeshifter : ChessPiece
 	public override void OnSpecialHoldInput(PlayerFSM playerFSM, InputEventMouseButton mouseEvent){
 		//Shapeshifter logic
 		if(mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
-			if(playerFSM.hoverTile != null && playerFSM.abilityMoves.Contains(playerFSM.hoverTile.coordinates)){
+			if(playerFSM.hoverTile.tile != null && playerFSM.abilityMoves.Contains(playerFSM.hoverTile.tile.coordinates)){
 				playerFSM.TransitToState(typeof(PlayerSpecialReleaseState));
 			}
 			else
 				playerFSM.TransitToState(typeof(PlayerInvalidReleaseState));
 		
 	}
-
+	//TODO: Has to be seperated into 2 for poth rect and hex chess
+	//Currently works only for rect chess
+	//Might Change it to include the selected piece for better check
 	public class ShapeshiftCommand : Command{
-		public PieceStruct pickup{get; protected set;}
+		public TileStruct pickup{get; protected set;}
     	public PieceType pieceType{get; protected set;}
-		private ChessPiece pickupPiece;
+		public PieceType oldType{get; protected set;}
 		private ChessPiece newPiece;
-
+		private ChessPiece oldPiece;
 		public ShapeshiftCommand() : base(){}
-    	public ShapeshiftCommand(ChessPiece pPickup, PieceType pPieceType){
-        	pickup = new PieceStruct(pPickup);
+    	public ShapeshiftCommand(TileStruct pPickup, PieceType pPieceType){
+        	pickup = pPickup;
         	pieceType = pPieceType;
+			oldType = pPickup.piece.pieceType;
     	}
 
-		public override void execute(ref Tile[][] board){
-			if(pickup == null)
-				GD.Print("Why is the pieceStruct null?!?!");
-			if(board[pickup.cord.Y][pickup.cord.X].piece == null)
-				GD.Print("Why is the piece null?!?!");
-			pickupPiece = board[pickup.cord.Y][pickup.cord.X].piece;
-			pickupPiece.Visible = false;
-			pickupPiece.Ability = false;
-			newPiece = Resources.pieceCollection[pieceType].Instantiate() as ChessPiece;
-			pickupPiece.tile.AddChild(newPiece);
-			newPiece.InitPiece(pieceType, pickupPiece.Team);
-			ChessBoard.AssignPiece(newPiece,pickupPiece.tile);
-			newPiece.SetPosition(Vector3.Up,true);
-			newPiece.SetPosition(Vector3.Zero);
-			if(newPiece.Team == Team.Blue)
-				newPiece.RotateY(Mathf.DegToRad(180));
-
-			EventBus<NewTurnEvent>.OnEvent += OnNewTurn;
+		public override void execute(ref BoardStruct[][] board){
+			if(pickup.piece != null){
+				oldPiece = ChessBoard.Instance.GetPieceById(pickup.piece.pieceID);
+				oldPiece.Visible = false;
+				oldPiece.Ability = false;
+				newPiece = ChessBoard.Instance.SpawnFigure(pickup.x,pickup.y,pickup.piece);
+				newPiece.SetPosition(Vector3.Up,true);
+				newPiece.SetPosition(Vector3.Zero);
+				EventBus<NewTurnEvent>.OnEvent += OnNewTurn;
+			}
 		}
 
-        public override void reverse(ref Tile[][] board){
-			pickupPiece.Visible = true;
-			pickupPiece.Ability = true;
-			ChessBoard.AssignPiece(pickupPiece,newPiece.tile);
-			newPiece.Free();
-
+        public override void reverse(ref BoardStruct[][] board){
+			if(pickup.piece != null){
+				oldPiece.Visible = true;
+				oldPiece.Ability = true;
+				ChessBoard.Instance.AssignPiece(oldPiece,board[pickup.x][pickup.y]);
+				ChessBoard.Instance.DeletePiece(newPiece);
+			}
         }
+
+		public override bool validateMove(ref PieceStruct[][] boardData){
+			//Just return true, no need for a check now
+        	return true;
+    	}
+    	public override void updateBoardData(ref PieceStruct[][] boardData){
+			//We have a problem there is no way yet o
+			boardData[pickup.y][pickup.x].pieceType = pieceType;
+		}
+    	public override void revertBoardData(ref PieceStruct[][] boardData){
+			boardData[pickup.y][pickup.x].pieceType = oldType;
+		}
         private void OnNewTurn(NewTurnEvent turnEvent){
-			ChessBoard.AssignPiece(pickupPiece,newPiece.tile);
-			pickupPiece.SetPosition(Vector3.Up,true);
-			pickupPiece.SetPosition(Vector3.Zero);
-			newPiece.Free();
-			newPiece = null;
-			pickupPiece.Visible = true;
+			oldPiece.Visible = true;
+			ChessBoard.Instance.AssignPiece(oldPiece,ChessBoard.Instance.GetBoardStruct(pickup.x,pickup.y));
+			oldPiece.SetPosition(Vector3.Up,true);
+			oldPiece.SetPosition(Vector3.Zero);
+			ChessBoard.Instance.DeletePiece(newPiece);
 			EventBus<NewTurnEvent>.OnEvent -= OnNewTurn;
 		}
 
@@ -189,7 +83,7 @@ public partial class Shapeshifter : ChessPiece
     	}
 
     	public override void Deserialize(Packet packet) {
-  	      	pickup = packet.Read<PieceStruct>();
+  	      	pickup = packet.Read<TileStruct>();
         	pieceType = (PieceType)packet.ReadInt();
     	}
 	}

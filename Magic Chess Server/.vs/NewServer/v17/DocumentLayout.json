@@ -1,30 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\",
+  "WorkspaceRootPath": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\tcpgameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\tcpgameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\rooms\\lobbyroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\rooms\\lobbyroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\rooms\\loginroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|e:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\rooms\\loginroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\rooms\\loginroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|e:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\rooms\\gameroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|e:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\rooms\\lobbyroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\rooms\\lobbyroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|e:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\rooms\\gameroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\rooms\\gameroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|g:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|e:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|e:\\year 2 module 1\\personal protfolio\\magic chess full project\\magic-chess\\magic chess server\\server src\\tcpgameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{956E1650-80C4-4EB3-9040-B08AD07DC0D4}|NewServer.csproj|solutionrelative:server src\\tcpgameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,78 +34,82 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "GameBoard.cs",
-              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\GameBoard.cs",
+              "DocumentMoniker": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\GameBoard.cs",
               "RelativeDocumentMoniker": "server src\\GameBoard.cs",
-              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\GameBoard.cs",
+              "ToolTip": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\GameBoard.cs",
               "RelativeToolTip": "server src\\GameBoard.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAQwC0AAABEAAAA",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwC0AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-29T12:03:35.415Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Room.cs",
-              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\Room.cs",
-              "RelativeDocumentMoniker": "server src\\Room.cs",
-              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\Room.cs",
-              "RelativeToolTip": "server src\\Room.cs",
-              "ViewState": "AQIAADIAAAAAAAAAAAAqwD8AAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-29T12:01:51.801Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoginRoom.cs",
-              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\LoginRoom.cs",
-              "RelativeDocumentMoniker": "server src\\rooms\\LoginRoom.cs",
-              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\LoginRoom.cs",
-              "RelativeToolTip": "server src\\rooms\\LoginRoom.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAA1wD0AAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-29T11:49:08.754Z"
+              "WhenOpened": "2024-08-29T12:03:35.415Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Room.cs",
+              "DocumentMoniker": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\Room.cs",
+              "RelativeDocumentMoniker": "server src\\Room.cs",
+              "ToolTip": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\Room.cs",
+              "RelativeToolTip": "server src\\Room.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAiwIwAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-29T12:01:51.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoginRoom.cs",
+              "DocumentMoniker": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\LoginRoom.cs",
+              "RelativeDocumentMoniker": "server src\\rooms\\LoginRoom.cs",
+              "ToolTip": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\LoginRoom.cs",
+              "RelativeToolTip": "server src\\rooms\\LoginRoom.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAQwEEAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-29T11:49:08.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "LobbyRoom.cs",
-              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\LobbyRoom.cs",
+              "DocumentMoniker": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\LobbyRoom.cs",
               "RelativeDocumentMoniker": "server src\\rooms\\LobbyRoom.cs",
-              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\LobbyRoom.cs",
+              "ToolTip": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\LobbyRoom.cs",
               "RelativeToolTip": "server src\\rooms\\LobbyRoom.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAADEAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAkwD8AAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-29T11:20:03.161Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "GameRoom.cs",
-              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\GameRoom.cs",
+              "DocumentMoniker": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\GameRoom.cs",
               "RelativeDocumentMoniker": "server src\\rooms\\GameRoom.cs",
-              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\GameRoom.cs",
+              "ToolTip": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\rooms\\GameRoom.cs",
               "RelativeToolTip": "server src\\rooms\\GameRoom.cs",
-              "ViewState": "AQIAAEoAAAAAAAAAAAAswFcAAAAQAAAA",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAswFcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-29T11:18:39.212Z"
+              "WhenOpened": "2024-08-29T11:18:39.212Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "TCPGameServer.cs",
-              "DocumentMoniker": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\TCPGameServer.cs",
+              "DocumentMoniker": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\TCPGameServer.cs",
               "RelativeDocumentMoniker": "server src\\TCPGameServer.cs",
-              "ToolTip": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\TCPGameServer.cs",
+              "ToolTip": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\server src\\TCPGameServer.cs",
               "RelativeToolTip": "server src\\TCPGameServer.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAwwEkAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAuwEkAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-29T11:11:58.161Z",
               "EditorCaption": ""

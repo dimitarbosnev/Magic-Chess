@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace server
 {
@@ -95,26 +96,28 @@ namespace server
         }
         private void handleMakeMoveRequest(MakeMoveRequest pMessage, TcpMessageChannel pSender)
         {
-            //if (_board.teamTurn !=_server.GetPlayerInfo(pSender).playerTeam) return;
-            //we have two players, so index of sender is 0 or 1, which means playerID becomes 1 or 2
-            //make the requested move (0-8) on the board for the player
-            //_board.MakeMove(pMessage.move, playerID);
+            if (_board.teamTurn !=_server.GetPlayerInfo(pSender).playerTeam || pMessage.command == null) return;
 
-            //and send the result of the boardstate back to all clients
+             MakeMoveResult makeMoveResult;
             //Board check
-
-            //if(!_board.GetBoardData().CheckBoard(pMessage.chessBoardData.board))
-            //{
-
-            //}
-
-            //TODO: command check
-
-            //switch turn
-                //_board.NextTurn();
-            MakeMoveResult makeMoveResult = new MakeMoveResult(pMessage.command);
-            //makeMoveResult.boardData = _board.GetBoardData();
-            sendToAll(makeMoveResult);
+            if(!_board.IsBoardValid(pMessage.chessBoardData) || !pMessage.command.validateMove(ref _board.GetBoardData().board)){
+                //If the board is invalid send over the correct one
+                ChangeBoardCommand command = new ChangeBoardCommand(_board.GetBoardData());
+                makeMoveResult = new MakeMoveResult(command);
+                pSender.SendMessage(makeMoveResult);
+                return;
+            }
+            else if(pMessage.command.validateMove(ref _board.GetBoardData().board)){
+                if(pMessage.command is RedKing.ReverseTurnCommand){
+                    //if it is a reverse command add the last executed move
+                    RedKing.ReverseTurnCommand com = pMessage.command as RedKing.ReverseTurnCommand;
+                    com.commandToReverse = _board.executedCommands.Peek();
+                }
+                pMessage.command.updateBoardData(ref _board.GetBoardData().board);
+                _board.NextTurn();
+                makeMoveResult = new MakeMoveResult(pMessage.command);
+                sendToAll(makeMoveResult);
+            }
         }
 
     }

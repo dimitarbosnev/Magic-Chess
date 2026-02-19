@@ -1,14 +1,24 @@
 ﻿     public enum PieceType
     {
         None = 0,
-        Soldier = 1,
-        RedKing = 2,
-        BlueKing = 3,
-        Queen = 4,
-        Assassin = 5,
-        Centaur = 6,
-        Shapeshifter = 7,
-        Mage = 8,
+        HexSoldier = 1,
+        HexRedKing = 2,
+        HexBlueKing = 3,
+        HexQueen = 4,
+        HexAssassin = 5,
+        HexCentaur = 6,
+        HexShapeshifter = 7,
+        HexMage = 8,
+
+        RectSoldier = 9,
+        RectRedKing = 10,
+        RectBlueKing = 11,
+        RectQueen = 12,
+        RectAssassin = 13,
+        RectCentaur = 14,
+        RectShapeshifter = 15,
+        RectMage = 16,
+
     }
 
     public enum Team

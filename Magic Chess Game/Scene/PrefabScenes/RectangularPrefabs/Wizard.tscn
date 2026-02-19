@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp0edmklbctx5"]
+
+[ext_resource type="Script" path="res://Script/RectangularChess/Pieces/RectMage.cs" id="1_f4d7b"]
+[ext_resource type="ArrayMesh" uid="uid://dwcu7vlhuyoeq" path="res://Assets/Pieces/wizard/Snakewizard.obj" id="2_837ug"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_f4d7b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.4, 0, -3.49691e-08, 0, 0.4, 0, 3.49691e-08, 0, -0.4, 0, 0.05, 0)
+mesh = ExtResource("2_837ug")

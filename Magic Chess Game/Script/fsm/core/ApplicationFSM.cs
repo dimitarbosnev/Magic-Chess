@@ -32,7 +32,7 @@ public partial class ApplicationFSM : Node3D
 	//This way we know which game object to enable when a specific state is requested through ChangeState<LoginState>
 	Dictionary<Type, ApplicationState> _stateMap = new Dictionary<Type, ApplicationState>()
 	{{typeof(LoginState),new LoginState()},{typeof(LobbyState),new LobbyState()},
-	{typeof(GameState),new GameState()}};
+	{typeof(GameStateRect),new GameStateRect()},{typeof(GameStateHex),new GameStateHex()}};
 
 	//we also store our current state so we know which state to disable when we switch
 	private ApplicationState _currentState = null;

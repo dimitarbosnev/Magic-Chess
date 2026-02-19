@@ -14,23 +14,13 @@
      */
     public class GameBoard
     {
-        private ChessBoardData _board = new ChessBoardData();
-
+        private ChessBoardData _board = new RectChessBoardData();
+        public Stack<Command> executedCommands = new Stack<Command>();
         public Team teamTurn;
         /**
          * @param pMove     a number from 0-8 that indicates the cell we want to change
          * @param pPlayer   1 or 2 to indicate which player made the move
          */
-        public void MakeMove (int pMove, int pPlayer)
-        {
-            //_board.board[pMove] = pPlayer;
-
-            //we could also check which row and column if we wanted to:
-            int columns = 3;
-            int row = pMove / columns;
-            int column = pMove % columns;
-            Log.LogInfo($"Player {pPlayer} made a move in cell ({column},{row})", this);
-        }
 
         /**
          * Return the inner board data state so we can send it to a client.
@@ -41,6 +31,18 @@
             return _board;
         }
 
+        public bool IsBoardValid(ChessBoardData newBoardData){
+            PieceStruct[][] oldBoard = _board.board;
+            PieceStruct[][] newBoard = newBoardData.board;
+            for (int y = 0; y < oldBoard.Length; y++)
+			    for (int x = 0; x <	oldBoard[y].Length; x++){
+                    if(!SharedUtils.ComparePieceStructs(oldBoard[y][x],newBoard[y][x]))
+			    		return false;
+                }
+			return true;			
+		 }
+
+       
         public void NextTurn()
         {
             teamTurn = teamTurn == Team.Blue ? Team.Red : Team.Blue;

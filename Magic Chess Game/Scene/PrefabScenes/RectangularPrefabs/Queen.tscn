@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://h5pvj68cy1pk"]
+
+[ext_resource type="Script" path="res://Script/RectangularChess/Pieces/RectQueen.cs" id="1_mr33h"]
+[ext_resource type="ArrayMesh" uid="uid://cnwi32gpevcdn" path="res://Assets/Pieces/god/snakegod-0.obj" id="2_cx6r8"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_mr33h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.27, 0, 0, 0, 0.27, 0, 0, 0, 0.27, -1.37, 0.05, 0)
+mesh = ExtResource("2_cx6r8")

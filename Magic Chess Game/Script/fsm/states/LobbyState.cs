@@ -77,7 +77,8 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
         //did we move to the game room?
         if (pMessage.room == RoomJoinedEvent.Room.GAME_ROOM)
         {
-            fsm.ChangeState<GameState>();
+            //TODO: Add support for diffent game rooms (game modes)
+            fsm.ChangeState<GameStateRect>();
         }
     }
 

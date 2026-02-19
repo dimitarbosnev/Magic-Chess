@@ -4,6 +4,7 @@
 	 */
 	public class RoomJoinedEvent : ISerializable
 	{
+		//TODO: Add support for diffent game rooms (game modes)
 		public enum Room { LOGIN_ROOM, LOBBY_ROOM, GAME_ROOM };
 		public Room room;
 

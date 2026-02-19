@@ -1,28 +1,23 @@
 using Godot;
+using System;
 using System.Collections.Generic;
+public class BoardStruct{
+	public Tile tile;
+	public ChessPiece piece;
+}
 
-public partial class ChessBoard : Node3D
+public abstract partial class ChessBoard : Singelton<ChessBoard>
 {
 	[Export] private Node3D graveyardBlue = null;
-	[Export] private Node3D graveyardRed = null;
-	public static Tile[][] board = { new Tile[9],new Tile[8],new Tile[9],
-							  new Tile[8],new Tile[9],new Tile[8],
-							  new Tile[9],new Tile[8],new Tile[9]};					
-	private List<ChessPiece> deadPieces = new List<ChessPiece>(); // TODO: handle for reversing a command
-	private static Stack<Command> executedCommands = new Stack<Command>();
-	private float tileXoffset = .865f;
-	private float tileYoffset = .75f;
+	[Export] private Node3D graveyardRed = null;			
+	private Dictionary<int,ChessPiece> piecesList = new Dictionary<int,ChessPiece>(); // TODO: handle for reversing a command
+	protected float tileXoffset = 0;
+	protected float tileYoffset = 0;
 	public static Team teamTurn{get; private set;}
-	
 	public override void _Ready()
 	{
-		GenerateAllTiles();
-		for (int x = 0; x < board.Length; x++)
-			for (int y = 0; y < board[x].Length; y++)
-				GD.Print("Tile[" + x +"][" + y +"]");
-		LoadMaterials();
-		SpawnBoard();
-		//TestBoard();
+		_instance = this;
+
 		EventBus<CommandMessageRecived>.OnEvent += OnCommandRecived;
 		EventBus<PieceKillEvent>.OnEvent += KillPiece;
 		EventBus<NewTurnEvent>.OnEvent += OnNewTurn;
@@ -34,22 +29,15 @@ public partial class ChessBoard : Node3D
 		teamTurn = newTurnEvent.team;
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
-	public static void AssignPiece(ChessPiece piece, Tile tile){
-		tile.piece = piece;
-	}
-
 	private void ExecuteCommand(Command command){
-		command.execute(ref board);
-		executedCommands.Push(command);
+		//TODO: move execution to the server side
+		command.execute(ref GetBoard());
+		//executedCommands.Push(command);
 	}
 
-	public static Command GetCommandPeek(){
-		return executedCommands.Peek();
-	}
+	//public static Command GetCommandPeek(){
+	//	//return executedCommands.Peek();
+	//}
 
 	private void OnCommandRecived(CommandMessageRecived e){
 		ClearTiles();
@@ -57,62 +45,67 @@ public partial class ChessBoard : Node3D
 	}
 
 	private void ClearTiles(){
-		for (int y = 0; y < board.Length; y++)
-			for (int x = 0; x < board[y].Length; x++)
-				board[y][x].RemoveHighlight();
-	}
-	private Vector3 GetTileCenter(int x, int y)
-	{
-		if (y % 2 != 0)
-			return new Vector3((x * tileXoffset) + 0.433f, 0, y * tileYoffset);
-		else
-			return new Vector3(x * tileXoffset, 0, y * tileYoffset);
+		BoardStruct[][] board = GetBoard();
+		for (int x = 0; x < board.Length; x++)
+			for (int y = 0; y < board[y].Length; y++)
+				board[y][x].tile.RemoveHighlight();
 	}
 
-	private Vector3 GetTilePos(int x, int y)
+	public Vector3 GetTilePos(int x, int y)
 	{
-		return board[x][y].Position;
+		BoardStruct[][] board = GetBoard();
+		return GetTilePos(board[y][x]);
 	}
-	private Tile GenerateSingleTiles(int x, int y)
+	public Vector3 GetTilePos(BoardStruct boardStruct)
 	{
-		var tile = Resources.tileScene.Instantiate() as Tile;
-		tile.Position = GetTileCenter(x, y);
-		tile.InitTile(x, y);
-		AddChild(tile);
-		return tile;
+		return boardStruct.tile.Position;
+	}
+	protected abstract Tile GenerateSingleTiles(int x, int y);
+
+	protected void GenerateAllTiles()
+	{
+		BoardStruct[][] board = GetBoard();
+		for (int x = 0; x < board.Length; x++)
+			for (int y = 0; y < board[x].Length; y++){
+				board[y][x] = new BoardStruct();
+				board[y][x].tile = GenerateSingleTiles(x, y);
+			}			
 	}
 
-	private void GenerateAllTiles()
+	public ChessPiece SpawnFigure(int X, int Y, PieceType type, Team team)
 	{
-		for (int y = 0; y < board.Length; y++)
-			for (int x = 0; x < board[y].Length; x++)
-				board[y][x] = GenerateSingleTiles(x, y);			
-	}
-
-	private void LoadMaterials()
-	{
-		int i = 0;
-		for (int y = 0; y < board.Length; y ++) {
-			for (int x = 0; x < board[y].Length; x++) {
-				board[y][x].MaterialOverride = Resources.material[i];
-				i += x != board[y].Length - 1? 1 : 0;
-				i = i == Resources.material.Length? 0 : i;
-			}
-		}
-	}
-	private void SpawnFigure(int X, int Y, PieceType type, Team team)
-	{
-		var piece = Resources.pieceCollection[type].Instantiate() as ChessPiece;
-		AddChild(piece);
+		BoardStruct[][] board = GetBoard();
+		var piece = Utils.pieceCollection[type].Instantiate() as ChessPiece;
 		piece.InitPiece(type, team);
-		AssignPiece(piece,board[Y][X]);
+		piece.SetID(piecesList.Count);
 		if(team == Team.Blue)
 			piece.RotateY(Mathf.DegToRad(180));
+		AddChild(piece);
+		AssignPiece(piece, board[Y][X]);
+		piecesList.Add(piecesList.Count, piece);
+
+		return piece;
 	}
 
+	public ChessPiece SpawnFigure(int x, int y, PieceStruct pieceStruct)
+	{
+		if(pieceStruct == null) return null;
+		BoardStruct[][] board = GetBoard();
+		var piece = Utils.pieceCollection[pieceStruct.pieceType].Instantiate() as ChessPiece;
+		piece.InitPiece(pieceStruct.pieceType, pieceStruct.team);
+		piece.SetID(pieceStruct.pieceID);
+		piece.Ability = pieceStruct.ability;
+		if(piece.Team == Team.Blue)
+			piece.RotateY(Mathf.DegToRad(180));
+
+		AddChild(piece);
+		AssignPiece(piece, board[y][x]);
+		piecesList[piece.id] = piece;
+
+		return piece;
+	}
 	public void KillPiece(PieceKillEvent killEvent){
 		ChessPiece piece = killEvent.chessPiece;
-		deadPieces.Add(piece);
 		switch(piece.Team){
 			case Team.Blue:
 				piece.Reparent(graveyardBlue);
@@ -125,130 +118,68 @@ public partial class ChessBoard : Node3D
 			default:
 			break;
 		}
-		piece.tile = null;
-		piece.targetPosition = Vector3.Zero;
+		piece.SetPosition(Vector3.Zero);
 	}
-	private void SpawnBoard(){
-		//Team Red
-		SpawnFigure(0, 8, PieceType.Mage, Team.Red);
-		SpawnFigure(1, 8, PieceType.Centaur, Team.Red);
-		SpawnFigure(2, 8, PieceType.Assassin, Team.Red);
-		SpawnFigure(3, 8, PieceType.RedKing, Team.Red);
-		SpawnFigure(4, 8, PieceType.Assassin, Team.Red);
-		SpawnFigure(5, 8, PieceType.Queen, Team.Red);
-		SpawnFigure(6, 8, PieceType.Assassin, Team.Red);
-		SpawnFigure(7, 8, PieceType.Centaur, Team.Red);
-		SpawnFigure(8, 8, PieceType.Shapeshifter, Team.Red);
-		SpawnFigure(0, 7, PieceType.Soldier, Team.Red);
-		SpawnFigure(1, 7, PieceType.Soldier, Team.Red);
-		SpawnFigure(2, 7, PieceType.Soldier, Team.Red);
-		SpawnFigure(3, 7, PieceType.Soldier, Team.Red);
-		SpawnFigure(4, 7, PieceType.Soldier, Team.Red);
-		SpawnFigure(5, 7, PieceType.Soldier, Team.Red);
-		SpawnFigure(6, 7, PieceType.Soldier, Team.Red);
-		SpawnFigure(7, 7, PieceType.Soldier, Team.Red);
+	public ChessPiece GetPieceById(int id){
 
-		//Team Blue
-		SpawnFigure(0, 0, PieceType.Mage, Team.Blue);
-		SpawnFigure(1, 0, PieceType.Centaur, Team.Blue);
-		SpawnFigure(2, 0, PieceType.Assassin, Team.Blue);
-		SpawnFigure(3, 0, PieceType.BlueKing, Team.Blue);
-		SpawnFigure(4, 0, PieceType.Assassin, Team.Blue);
-		SpawnFigure(5, 0, PieceType.Queen, Team.Blue);
-		SpawnFigure(6, 0, PieceType.Assassin, Team.Blue);
-		SpawnFigure(7, 0, PieceType.Centaur, Team.Blue);
-		SpawnFigure(8, 0, PieceType.Shapeshifter, Team.Blue);
-		SpawnFigure(0, 1, PieceType.Soldier, Team.Blue);
-		SpawnFigure(1, 1, PieceType.Soldier, Team.Blue);
-		SpawnFigure(2, 1, PieceType.Soldier, Team.Blue);
-		SpawnFigure(3, 1, PieceType.Soldier, Team.Blue);
-		SpawnFigure(4, 1, PieceType.Soldier, Team.Blue);
-		SpawnFigure(5, 1, PieceType.Soldier, Team.Blue);
-		SpawnFigure(6, 1, PieceType.Soldier, Team.Blue);
-		SpawnFigure(7, 1, PieceType.Soldier, Team.Blue);
+		return piecesList[id];
 	}
-
-	private void TestBoard(){
-		//Team Red
-		//OG: 0,8
-		//SpawnFigure(0,8, PieceType.Mage, Team.Red);
-		//SpawnFigure(4, 4, PieceType.Centaur, Team.Red);
-		//SpawnFigure(2, 8, PieceType.Assasin, Team.Red);
-		//SpawnFigure(4, 4, PieceType.RedKing, Team.Red);
-		SpawnFigure(4, 4, PieceType.BlueKing, Team.Red);
-		//SpawnFigure(4, 8, PieceType.Assasin, Team.Red);
-		//SpawnFigure(5, 8, PieceType.Queen, Team.Red);
-		//OG:6,8
-		//SpawnFigure(4,4, PieceType.Assasin, Team.Red);
-		//SpawnFigure(3, 3, PieceType.Soldier, Team.Red);
-		//SpawnFigure(4, 3, PieceType.Soldier, Team.Red);
-		//SpawnFigure(3, 4, PieceType.Soldier, Team.Red);
-		//SpawnFigure(3, 5, PieceType.Soldier, Team.Red);
-		//SpawnFigure(4, 5, PieceType.Soldier, Team.Red);
-		//SpawnFigure(5, 4, PieceType.Soldier, Team.Red);
-		//SpawnFigure(6, 7, PieceType.Soldier, Team.Red);
-		//SpawnFigure(7, 7, PieceType.Soldier, Team.Red);
-
-		//SpawnFigure(7, 8, PieceType.Centaur, Team.Red);
-		//SpawnFigure(8, 8, PieceType.Shapeshifter, Team.Red);
-		//SpawnFigure(3, 3, PieceType.Soldier, Team.Red);
-		//SpawnFigure(4, 3, PieceType.Soldier, Team.Red);
-		//SpawnFigure(2, 7, PieceType.Soldier, Team.Red);
-		//SpawnFigure(3, 7, PieceType.Soldier, Team.Red);
-		//SpawnFigure(4, 7, PieceType.Soldier, Team.Red);
-		//SpawnFigure(5, 7, PieceType.Soldier, Team.Red);
-		//SpawnFigure(6, 7, PieceType.Soldier, Team.Red);
-		//SpawnFigure(7, 7, PieceType.Soldier, Team.Red);
-
-		////Team Blue
-		//SpawnFigure(0, 0, PieceType.Mage, Team.Blue);
-		//SpawnFigure(1, 0, PieceType.Centaur, Team.Blue);
-		//SpawnFigure(2, 0, PieceType.Assasin, Team.Blue);
-		//SpawnFigure(3, 0, PieceType.BlueKing, Team.Blue);
-		//SpawnFigure(4, 0, PieceType.Assasin, Team.Blue);
-		SpawnFigure(5, 0, PieceType.Queen, Team.Blue);
-		//SpawnFigure(6, 0, PieceType.Assasin, Team.Blue);
-		//SpawnFigure(7, 0, PieceType.Centaur, Team.Blue);
-		//SpawnFigure(8, 0, PieceType.Shapeshifter, Team.Blue);
-		//SpawnFigure(0, 1, PieceType.Soldier, Team.Blue);
-		//SpawnFigure(1, 1, PieceType.Soldier, Team.Blue);
-		//SpawnFigure(2, 1, PieceType.Soldier, Team.Blue);
-		//SpawnFigure(3, 1, PieceType.Soldier, Team.Blue);
-		//SpawnFigure(4, 1, PieceType.Soldier, Team.Blue);
-		//SpawnFigure(5, 1, PieceType.Soldier, Team.Blue);
-		//SpawnFigure(6, 1, PieceType.Soldier, Team.Blue);
-		//SpawnFigure(7, 1, PieceType.Soldier, Team.Blue);
+	private ChessPiece GetPiece(Tile tile){
+		return GetBoard()[tile.coordinates.Y][tile.coordinates.X].piece;
 	}
-
-	public static List<Vector2I> FilterMoves(List<Vector2I> moves)
-	{
-		List<Vector2I> movesToRemove = new List<Vector2I>();
-		foreach(Vector2I move in moves){
-			Tile tile = board[move.Y][move.X];
-			if(tile.piece != null && tile.piece.PieceType == PieceType.BlueKing && (tile.piece as BlueKing).protection)
-				movesToRemove.Add(tile.coordinates);		
-		}
-
-
-		
-		foreach(Vector2I move in movesToRemove)
-			moves.Remove(move);
-		return moves;
-	}	
-
-	/*public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventKey eventKey && eventKey.Pressed)
-			switch (eventKey.Keycode){
-				case Key.Z:
-					executedCommands.Pop().reverse();//ref board);
-				break;
-				case Key.Escape:
-					GetTree().Quit();
-				break;
-				case Key.X:
-					EventBus<NewTurnEvent>.Invoke(new NewTurnEvent(teamTurn));
-				break;
+	private Tile GetTile(ChessPiece piece){
+		foreach(BoardStruct[] row in GetBoard()){
+			foreach(BoardStruct boardStruct in row){
+				if(boardStruct.piece == piece)
+					return boardStruct.tile;
 			}
-	}*/
+		}
+		return null;
+	}
+	public bool DeletePiece(ChessPiece chessPiece){
+		if(chessPiece == null) return false;
+		if(!piecesList.ContainsKey(chessPiece.id)) return false;
+		
+		piecesList.Remove(chessPiece.id);
+		chessPiece.Free();
+		chessPiece = null;
+		return true;
+	}
+
+	public void RespawnPiece(int x, int y, PieceStruct pieceStruct){
+		if(!DeletePiece(GetPieceById(pieceStruct.pieceID)))
+			SpawnFigure(x,y,pieceStruct);
+	}
+	public BoardStruct GetBoardStruct(int X, int Y){
+		return GetBoard()[Y][X];
+	}
+
+	///Function will return null if tile == null
+	public BoardStruct GetBoardStruct(Tile tile){
+		if(tile == null) return null;
+		return GetBoardStruct(tile.coordinates.Y, tile.coordinates.X);
+	}
+
+	public BoardStruct GetBoardStruct(ChessPiece chessPiece){
+		return GetBoardStruct(GetTile(chessPiece));
+	}
+
+	public abstract PieceStruct[][] GetBoardData();
+	public bool AssignPiece(ChessPiece pickup, BoardStruct end){
+		try{
+		end.piece = pickup;
+		pickup.Reparent(end.tile);
+		pickup.SetPosition(GetTilePos(end));
+		return true;
+		}
+		catch(Exception e){
+			return false;
+		}
+	}
+	public abstract List<Vector2I> FilterMoves(List<Vector2I> moves);	
+	protected abstract Vector3 GetTileCenter(int x, int y);
+	protected abstract void SpawnBoard();
+	protected abstract void TestBoard();
+	protected abstract void LoadMaterials();
+	public abstract ref BoardStruct[][] GetBoard();
 }

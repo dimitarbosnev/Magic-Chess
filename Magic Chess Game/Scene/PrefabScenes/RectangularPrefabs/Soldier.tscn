@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://35w7ojs2yix8"]
+
+[ext_resource type="Script" path="res://Script/RectangularChess/Pieces/RectSoldier.cs" id="1_twpgu"]
+[ext_resource type="ArrayMesh" uid="uid://dxlugxrhi6fnc" path="res://Assets/Pieces/soldier/Crocsoldier.obj" id="2_ohlif"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_twpgu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0.05, 0)
+mesh = ExtResource("2_ohlif")

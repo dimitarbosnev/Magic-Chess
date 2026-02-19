@@ -1,20 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <StartupObject>server.TCPGameServer</StartupObject>
+    <ProjectGuid>{956E1650-80C4-4EB3-9040-B08AD07DC0D4}</ProjectGuid>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET;NET6_0;NETCOREAPP</DefineConstants>
+    <NoWarn>1701;1702</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <WarningsAsErrors>;NU1605</WarningsAsErrors>
+    <LangVersion>10.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;RELEASE;NET;NET6_0;NETCOREAPP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>1701;1702</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <WarningsAsErrors>;NU1605</WarningsAsErrors>
+    <LangVersion>10.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GodotSharp">
-      <HintPath>..\Magic Chess Game\.godot\mono\temp\bin\Debug\GodotSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Magic Chess">
-      <HintPath>..\Magic Chess Game\.godot\mono\temp\bin\Debug\Magic Chess.dll</HintPath>
+    <Reference Include="Magic Chess Game">
+      <HintPath>..\Magic Chess Game\.godot\mono\temp\bin\Debug\Magic Chess Game.dll</HintPath>
     </Reference>
   </ItemGroup>
-
+  <ItemDefinitionGroup>
+  <PreBuildEvent>
+    <Command></Command>
+    <Message></Message>
+  </PreBuildEvent>
+  <PreLinkEvent>
+  </PreLinkEvent>
+  <PostBuildEvent>
+  </PostBuildEvent>
+</ItemDefinitionGroup>
 </Project>

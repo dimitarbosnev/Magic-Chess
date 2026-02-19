@@ -1,0 +1,14 @@
+1.Fix RedKing, Soldier and Shapeshiffter
+2.Look for more changes
+3.Fix server side
+ 
+GAME BREAKING!!!
+1.Fix the inverted xy coordinates of tiles (FOR EVERYTHING)
+ Remember if 
+ for y > ...
+ for x > ..
+ order of coordinates is x,y
+
+ for x > ...
+ for y > ...
+ order of coordinates is y,x

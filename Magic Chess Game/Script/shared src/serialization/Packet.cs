@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
-using Godot;
-
+﻿using System.IO;
+using System;
 	/**
 	 * The Packet class provides a simple wrapper around an array of bytes (in the form of a MemoryStream), 
 	 * that allows us to write/read values to/from the Packet easily. 
@@ -32,8 +30,8 @@ using Godot;
 		/// WRITE METHODS
 
 		public void Write (int pInt)							{		writer.Write(pInt);			}
-		public void Write(Vector2I cord)						{		writer.Write(cord.X);
-																		writer.Write(cord.Y);		}
+		//public void Write(Vector2I cord)						{		writer.Write(cord.X);
+		//																writer.Write(cord.Y);		}
 		public void Write (string pString)						{		writer.Write(pString);		}
 		public void Write (bool pBool)							{		writer.Write(pBool);		}
 		
@@ -47,7 +45,7 @@ using Godot;
 		/// READ METHODS
 
 		public int ReadInt() { return reader.ReadInt32(); }
-		public Vector2I ReadVector2I() {return new Vector2I(reader.ReadInt32(), reader.ReadInt32());}
+		//public Vector2I ReadVector2I() {return new Vector2I(reader.ReadInt32(), reader.ReadInt32());}
 		public string ReadString() { return reader.ReadString(); }
 		public bool ReadBool() { return reader.ReadBoolean(); }
 
@@ -55,6 +53,7 @@ using Godot;
 		{
 			//get the classname from the stream first
 			Type type = Type.GetType(ReadString());
+			//TODO: Check if the type exsists
 			//create an instance of it through reflection (requires default constructor)
 			ISerializable obj = (ISerializable)Activator.CreateInstance(type);
 			obj.Deserialize(this);

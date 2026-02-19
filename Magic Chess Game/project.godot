@@ -10,16 +10,16 @@ config_version=5
 
 [application]
 
-config/name="Magic Chess"
+config/name="Magic Chess Game"
 run/main_scene="res://Scene/MainScene.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="Magic Chess"
+project/assembly_name="Magic Chess Game"
 
-[editor]
+[rendering]
 
-movie_writer/disable_vsync=true
-movie_writer/fps=144
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

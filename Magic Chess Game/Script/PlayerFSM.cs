@@ -1,15 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Data;
-/*public enum PlayerStateType{
-	Hover = 0,
-	NormalHold = 1,
-	SpecialHold = 2,
-	NormalRelease = 3,
-	SpecialRelease = 4,
-	InvalidRelease = 5,
-}*/
 public partial class PlayerFSM : Node
 {
 	[Export] private CameraRotation camera;
@@ -22,27 +13,22 @@ public partial class PlayerFSM : Node
 	{typeof(PlayerSpecialReleaseState),new PlayerSpecialReleaseState()},{typeof(PlayerInvalidReleaseState),new PlayerInvalidReleaseState()}};
 	public ChessPiece currentHold;
 
-	public Tile[][] board{
-		get { return ChessBoard.board; }
+	public ref BoardStruct[][] board{
+		get { return ref ChessBoard.Instance.GetBoard(); }
 	}
-	public Tile hoverTile{
-		get{return ray.currentHover;}
+	public BoardStruct hoverTile{
+		get{return ChessBoard.Instance.GetBoardStruct(ray.currentHover);}
 	}
 	public Vector3 collisionPoint{get{return ray.GetCollisionPoint();}}
 
 	public List<Vector2I> abilityMoves{
-		get{return ChessBoard.FilterMoves(currentHold.GetAbilityMoves(ref ChessBoard.board));}
+		get{return ChessBoard.Instance.FilterMoves(currentHold.GetAbilityMoves(ref board));}
 	}
 
 	public List<Vector2I> normalMoves{
-		get{return ChessBoard.FilterMoves(currentHold.GetAvailableMoves(ref ChessBoard.board));}
+		get{return ChessBoard.Instance.FilterMoves(currentHold.GetAvailableMoves(ref board));}
 	}
 
-	public bool isPieceValid{
-		get{return ChessBoard.teamTurn == playerTeam && hoverTile != null && hoverTile.piece != null && 
-			playerTeam == hoverTile.piece.Team && 
-			!hoverTile.piece.frozen;}
-	}
 	public override void _Ready()
 	{
 		foreach(PlayerState state in playerStates.Values)
@@ -54,7 +40,7 @@ public partial class PlayerFSM : Node
 	private void OnGameStart(GameSetupEvent gameStart){
 		playerTeam = gameStart.team;
 		camera.AdaptCamera(playerTeam);
-		camera.targetPosition = board[4][4].Position;
+		camera.targetPosition = new Vector3(4,0,4);
 		camera.RotateCamera(Vector2.Zero,Vector2.Zero,0);
 		GD.Print("Team: " + playerTeam);
 	}
@@ -92,6 +78,18 @@ public partial class PlayerFSM : Node
 		EventBus<PieceReleaseEvent>.Invoke
 		(new PieceReleaseEvent(pChessPiece,pCommand));
 	}
+	public bool isPieceValid(out ChessPiece outPiece){
+		if(hoverTile == null){
+			outPiece = null;
+			return false;
+		}
+		
+		outPiece = hoverTile.piece;
+		if(outPiece == null) return false;
+
+		return ChessBoard.teamTurn == playerTeam && hoverTile.tile != null && 
+		hoverTile.piece != null && playerTeam == hoverTile.piece.Team && !hoverTile.piece.frozen;
+	}
 }
 
 public abstract class PlayerState {
@@ -115,9 +113,9 @@ public class PlayerHoverState : PlayerState {
 			lastHover.OnHoverExit(playerFSM);
 			lastHover = null;
 		}
-		if(playerFSM.isPieceValid){
-			playerFSM.hoverTile.piece.OnHoverUpdate(playerFSM);
-			lastHover = playerFSM.hoverTile.piece;
+		if(playerFSM.isPieceValid(out ChessPiece piece)){
+			piece.OnHoverUpdate(playerFSM);
+			lastHover = piece;
 		}
 	}
     public override void OnEnterState(){
@@ -128,8 +126,8 @@ public class PlayerHoverState : PlayerState {
 	}
 
 	public override void HandleInput(InputEventMouseButton mouseEvent){
-		if(playerFSM.isPieceValid)
-			playerFSM.hoverTile.piece.OnHoverInput(playerFSM,mouseEvent);
+		if(playerFSM.isPieceValid(out ChessPiece piece))
+			piece.OnHoverInput(playerFSM,mouseEvent);
 	}
 }
 
@@ -137,7 +135,7 @@ public class PlayerNormalHoldState : PlayerState {
 
     public override void Handle(){
 		foreach(Vector2I a in playerFSM.normalMoves)
-			playerFSM.board[a.Y][a.X].HighlightTile();
+			playerFSM.board[a.Y][a.X].tile.HighlightTile();
 		playerFSM.currentHold.OnNormalHoldUpdate(playerFSM);
 	}
     public override void OnEnterState(){
@@ -145,7 +143,7 @@ public class PlayerNormalHoldState : PlayerState {
 	}
     public override void OnExitState(){
 		foreach(Vector2I a in playerFSM.normalMoves)
-			playerFSM.board[a.Y][a.X].RemoveHighlight();
+			playerFSM.board[a.Y][a.X].tile.RemoveHighlight();
 	}
 	public override void HandleInput(InputEventMouseButton mouseEvent){
 		playerFSM.currentHold.OnNormalHoldInput(playerFSM, mouseEvent);
@@ -156,7 +154,7 @@ public class PlayerSpecialHoldState : PlayerState {
 
     public override void Handle(){
 		foreach(Vector2I a in playerFSM.abilityMoves)
-			playerFSM.board[a.Y][a.X].HighlightTile();
+			playerFSM.board[a.Y][a.X].tile.HighlightTile();
 		playerFSM.currentHold.OnSpecialHoldUpdate(playerFSM);
 	}
     public override void OnEnterState(){
@@ -164,7 +162,7 @@ public class PlayerSpecialHoldState : PlayerState {
 	}
     public override void OnExitState(){
 		foreach(Vector2I a in playerFSM.abilityMoves)
-			playerFSM.board[a.Y][a.X].RemoveHighlight();
+			playerFSM.board[a.Y][a.X].tile.RemoveHighlight();
 	}
 	public override void HandleInput(InputEventMouseButton mouseEvent){
 		playerFSM.currentHold.OnSpecialHoldInput(playerFSM, mouseEvent);
@@ -177,7 +175,7 @@ public class PlayerNormalReleaseState : PlayerState {
 		playerFSM.TransitToState(typeof(PlayerHoverState));
 	}
     public override void OnEnterState(){
-		playerFSM.InvokeMove(playerFSM.currentHold,new MoveCommand(playerFSM.currentHold,playerFSM.hoverTile));
+		playerFSM.InvokeMove(playerFSM.currentHold,new MoveCommand(SharedUtils.SetTileStruct(playerFSM.currentHold),SharedUtils.SetTileStruct(playerFSM.hoverTile)));
 	}
     public override void OnExitState(){
 		playerFSM.currentHold = null;

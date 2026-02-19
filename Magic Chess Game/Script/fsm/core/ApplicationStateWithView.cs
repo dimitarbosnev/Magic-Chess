@@ -34,7 +34,7 @@ public abstract class ApplicationStateWithView<T> : ApplicationState where T : V
 	public override void EnterState()
 	{
 		base.EnterState();
-		_view = Resources.sceneCollection[typeof(T)].Instantiate<T>();
+		_view = Utils.sceneCollection[typeof(T)].Instantiate<T>();
 		fsm.AddChild(view);
 	}
 

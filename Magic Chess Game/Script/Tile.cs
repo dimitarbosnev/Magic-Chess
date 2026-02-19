@@ -7,11 +7,6 @@ public partial class Tile : MeshInstance3D
 	//Stack<Material> overlayMaterials = new Stack<Material>();
 	[Export] Label label;
 	public Vector2I coordinates{get; private set;}
-	private ChessPiece _piece;
-	public ChessPiece piece{
-		get{return _piece;}
-		set{_piece = value; if(value != null) _piece.tile = this;}
-	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -27,7 +22,7 @@ public partial class Tile : MeshInstance3D
 	{
 		//overlayMaterials.Push(_highLight_Material);
 		//ApplyOverlayMaterial();
-		MaterialOverlay = Resources._highLight_Material;
+		MaterialOverlay = Utils._highLight_Material;
 	}
 
 	public void RemoveHighlight()

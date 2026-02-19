@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\dimit\\.nuget\\packages\\": {}
+    "C:\\Users\\Dimitar Bosnev\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\NewServer.csproj",
+      "projectUniqueName": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\NewServer.csproj",
       "projectName": "NewServer",
-      "projectPath": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\NewServer.csproj",
-      "packagesPath": "C:\\Users\\dimit\\.nuget\\packages\\",
-      "outputPath": "G:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\obj\\",
+      "projectPath": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\NewServer.csproj",
+      "packagesPath": "C:\\Users\\Dimitar Bosnev\\.nuget\\packages\\",
+      "outputPath": "E:\\Year 2 Module 1\\Personal Protfolio\\Magic Chess Full Project\\magic-chess\\Magic Chess Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\dimit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dimitar Bosnev\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,7 +28,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -46,7 +45,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net6.0": {
@@ -67,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
